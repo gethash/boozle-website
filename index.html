@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Boozle — Auto-Advancing PDF Slideshow App</title>
-  <meta name="description" content="Turn any PDF into a fullscreen, timed presentation for booths, kiosks, lobby screens, and hands-free presentations on macOS, Linux, and Windows.">
+  <meta name="description" content="Turn any PDF into a fullscreen, timed presentation for trade show booths, kiosks, lobby screens, Ignite talks, and hands-free presentations on macOS, Linux, and Windows.">
 
   <!-- Open Graph -->
   <meta property="og:type"        content="website">
@@ -42,7 +42,7 @@
         "name": "Boozle",
         "applicationCategory": "PresentationApplication",
         "operatingSystem": "macOS, Linux, Windows",
-        "description": "Boozle is an open-source PDF presenter for fullscreen, timed, auto-advancing slideshows.",
+        "description": "Boozle is an open-source PDF presenter for fullscreen, timed, auto-advancing slideshows. Ideal for trade show booths, kiosks, lobby screens, Ignite talks, and classrooms.",
         "license": "https://www.apache.org/licenses/LICENSE-2.0",
         "codeRepository": "https://github.com/gethash/boozle",
         "url": "https://boozle.io/",
@@ -80,6 +80,11 @@
             "@type": "Question",
             "name": "Can I choose which monitor to use?",
             "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the --monitor flag followed by the display index (e.g. --monitor 1) to open the presentation on a specific connected display." }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Boozle good for Ignite talks?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Boozle is ideal for Ignite talks — set --auto 15s on a 20-slide PDF and it advances every 15 seconds for a perfect 5-minute presentation. Add --autoquit so it exits cleanly after the last slide." }
           }
         ]
       }
@@ -128,9 +133,9 @@
       </h1>
       <p class="hero__lead">
         Boozle turns any PDF into a fullscreen, timed presentation.
-        Use it for trade show booths, kiosks, lobby screens, classrooms,
-        and hands-free slide playback. No presentation suite. No browser
-        workaround. No runtime to install.
+        Use it for trade show booths, kiosks, lobby screens, Ignite talks,
+        classrooms, and hands-free slide playback. No presentation suite.
+        No browser workaround. No runtime to install.
       </p>
       <div class="hero__cta">
         <a href="#install" class="btn btn--primary btn--lg">Download Boozle</a>
@@ -452,6 +457,19 @@ mv boozle-darwin-arm64 /usr/local/bin/boozle</code></pre>
         </div>
       </div>
 
+      <div class="use-case-card anim-fade-up">
+        <div class="use-case-card__title">
+          <svg class="use-case-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+          Ignite Talk
+        </div>
+        <p class="use-case-card__body">20 slides, 15 seconds each, fully automated. Export your Ignite deck as a PDF and let Boozle handle the timing — no clicker needed.</p>
+        <div class="code-block">
+          <pre><code>boozle ignite.pdf <span class="tok-flag">--auto</span> 15s <span class="tok-flag">--autoquit</span></code></pre>
+        </div>
+      </div>
+
     </div>
 
     <div style="text-align: center; margin-top: 2rem;">
@@ -696,6 +714,16 @@ boozle slides.pdf <span class="tok-flag">--auto</span> 20s <span class="tok-flag
         </button>
         <div class="faq-answer">
           Yes. Use <code>--monitor 1</code> (or any display index) to open the presentation on a specific connected display. Display 0 is the primary screen.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Is Boozle good for Ignite talks?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          Boozle is ideal for Ignite talks. Set <code>--auto 15s</code> on a 20-slide PDF and it advances automatically every 15 seconds, running the full 5 minutes hands-free. Add <code>--autoquit</code> so it exits cleanly when the last slide is done.
         </div>
       </div>
 
