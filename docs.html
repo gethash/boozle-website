@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boozle Docs — Auto-Advance PDF Slideshows from the Command Line</title>
+  <meta name="description" content="Learn how to run PDF slideshows with auto-advance, looping, per-slide timers, page ranges, monitor selection, and sidecar TOML configuration.">
+
+  <meta property="og:title"       content="Boozle Docs — CLI Reference">
+  <meta property="og:description" content="Complete CLI reference, keyboard shortcuts, and TOML config guide for Boozle.">
+  <meta property="og:url"         content="https://boozle.io/docs.html">
+
+  <link rel="canonical" href="https://boozle.io/docs.html">
+  <link rel="icon" type="image/svg+xml" href="logos/favicon.svg">
+  <link rel="alternate icon"            href="logos/favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="nav-logo" aria-label="Boozle home">
+      <img src="logos/logo.svg" alt="boozle" width="160" height="48">
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle navigation">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6"  x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+    <nav id="nav-links" class="nav-links" aria-label="Primary">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#install">Install</a>
+      <a href="use-cases.html">Use Cases</a>
+      <a href="docs.html" aria-current="page">Docs</a>
+      <a href="https://github.com/gethash/boozle" class="btn btn--github btn--sm" target="_blank" rel="noopener"><svg height="16" width="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="section-eyebrow">Documentation</div>
+    <h1 class="page-hero__title">Boozle documentation</h1>
+    <p class="page-hero__lead">Everything you need to run auto-advancing PDF slideshows from the command line.</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="docs-layout">
+
+    <!-- Sidebar -->
+    <aside class="docs-sidebar">
+      <div class="docs-sidebar__title">On this page</div>
+      <nav class="docs-sidebar__nav" aria-label="Docs sections">
+        <a href="#quick-start">Quick Start</a>
+        <a href="#common-commands">Common Commands</a>
+        <a href="#cli-reference">CLI Reference</a>
+        <a href="#keyboard-shortcuts">Keyboard Shortcuts</a>
+        <a href="#sidecar-config">Sidecar Config</a>
+        <a href="#platform-notes">Platform Notes</a>
+      </nav>
+    </aside>
+
+    <!-- Content -->
+    <main class="docs-content">
+
+      <!-- Quick Start -->
+      <div class="docs-section" id="quick-start">
+        <h2>Quick Start</h2>
+        <p>Install Boozle (see the <a href="index.html#install">install guide</a>), then run:</p>
+        <div class="code-block">
+          <div class="code-block__header">
+            <span>Terminal</span>
+            <button class="copy-btn" data-target="qs-basic">Copy</button>
+          </div>
+          <pre id="qs-basic"><code>boozle slides.pdf --auto 30s</code></pre>
+        </div>
+        <p>This opens your PDF fullscreen and advances every 30 seconds. Press <kbd>q</kbd> or <kbd>Esc</kbd> to quit.</p>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span>Loop forever with a progress overlay</span>
+            <button class="copy-btn" data-target="qs-loop">Copy</button>
+          </div>
+          <pre id="qs-loop"><code>boozle slides.pdf --auto 30s --loop --progress</code></pre>
+        </div>
+      </div>
+
+      <!-- Common Commands -->
+      <div class="docs-section" id="common-commands">
+        <h2>Common Commands</h2>
+
+        <h3>Loop a PDF slideshow</h3>
+        <div class="code-block">
+          <pre><code>boozle deck.pdf <span class="tok-flag">--auto</span> 20s <span class="tok-flag">--loop</span></code></pre>
+        </div>
+
+        <h3>Show a progress overlay</h3>
+        <div class="code-block">
+          <pre><code>boozle deck.pdf <span class="tok-flag">--auto</span> 20s <span class="tok-flag">--loop</span> <span class="tok-flag">--progress</span></code></pre>
+        </div>
+
+        <h3>Start from page 10</h3>
+        <div class="code-block">
+          <pre><code>boozle deck.pdf <span class="tok-flag">--start</span> 10</code></pre>
+        </div>
+
+        <h3>Present selected pages</h3>
+        <div class="code-block">
+          <pre><code>boozle deck.pdf <span class="tok-flag">--auto</span> 30s <span class="tok-flag">--pages</span> 3-7,10</code></pre>
+        </div>
+
+        <h3>Use a second monitor</h3>
+        <div class="code-block">
+          <pre><code>boozle deck.pdf <span class="tok-flag">--monitor</span> 1</code></pre>
+        </div>
+
+        <h3>Play once and quit</h3>
+        <div class="code-block">
+          <pre><code>boozle deck.pdf <span class="tok-flag">--auto</span> 30s <span class="tok-flag">--autoquit</span></code></pre>
+        </div>
+
+        <h3>Custom background color</h3>
+        <div class="code-block">
+          <pre><code>boozle deck.pdf <span class="tok-flag">--bg</span> <span class="tok-str">#1a1a2e</span></code></pre>
+        </div>
+
+        <h3>Use a sidecar config</h3>
+        <div class="code-block">
+          <pre><code>boozle deck.pdf <span class="tok-flag">--config</span> deck.toml</code></pre>
+        </div>
+      </div>
+
+      <!-- CLI Reference -->
+      <div class="docs-section" id="cli-reference">
+        <h2>CLI Reference</h2>
+        <p>All available flags for <code>boozle</code>:</p>
+        <div class="ref-table-wrap">
+          <table class="ref-table">
+            <thead>
+              <tr><th>Flag</th><th>Argument</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>--auto</td>
+                <td><code>&lt;duration&gt;</code></td>
+                <td>Auto-advance interval. Accepts Go duration strings: <code>30s</code>, <code>2m</code>, <code>500ms</code>.</td>
+              </tr>
+              <tr>
+                <td>--loop</td>
+                <td></td>
+                <td>Loop back to the first slide after the last page.</td>
+              </tr>
+              <tr>
+                <td>--start</td>
+                <td><code>&lt;N&gt;</code></td>
+                <td>Start at page N (1-indexed).</td>
+              </tr>
+              <tr>
+                <td>--pages</td>
+                <td><code>&lt;range&gt;</code></td>
+                <td>Restrict playback to a page range. Supports comma-separated ranges: <code>1-5,8,10-12</code>.</td>
+              </tr>
+              <tr>
+                <td>--monitor</td>
+                <td><code>&lt;N&gt;</code></td>
+                <td>Open on display N. Display 0 is the primary screen.</td>
+              </tr>
+              <tr>
+                <td>--bg</td>
+                <td><code>&lt;hex&gt;</code></td>
+                <td>Background color behind slides (default: <code>#000000</code>).</td>
+              </tr>
+              <tr>
+                <td>--progress</td>
+                <td></td>
+                <td>Show a page-position and countdown HUD overlay.</td>
+              </tr>
+              <tr>
+                <td>--autoquit</td>
+                <td></td>
+                <td>Quit automatically after the last slide.</td>
+              </tr>
+              <tr>
+                <td>--no-fullscreen</td>
+                <td></td>
+                <td>Run in windowed mode instead of fullscreen.</td>
+              </tr>
+              <tr>
+                <td>--config</td>
+                <td><code>&lt;path&gt;</code></td>
+                <td>Load a specific TOML config file (default: same directory as the PDF).</td>
+              </tr>
+              <tr>
+                <td>--version</td>
+                <td></td>
+                <td>Print the Boozle version and exit.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Keyboard Shortcuts -->
+      <div class="docs-section" id="keyboard-shortcuts">
+        <h2>Keyboard Shortcuts</h2>
+        <p>Controls available during a presentation:</p>
+        <div class="ref-table-wrap">
+          <table class="ref-table">
+            <thead>
+              <tr><th>Key</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>→ / Page Down / Space</td><td>Next slide</td></tr>
+              <tr><td>← / Page Up</td><td>Previous slide</td></tr>
+              <tr><td>Home</td><td>First slide</td></tr>
+              <tr><td>End</td><td>Last slide</td></tr>
+              <tr><td>0–9 + Enter</td><td>Jump to page number</td></tr>
+              <tr><td>p</td><td>Pause or resume auto-advance</td></tr>
+              <tr><td>b</td><td>Blackout screen (toggle)</td></tr>
+              <tr><td>w</td><td>Whiteout screen (toggle)</td></tr>
+              <tr><td>f</td><td>Toggle fullscreen</td></tr>
+              <tr><td>Tab</td><td>Open slide overview grid</td></tr>
+              <tr><td>q / Esc</td><td>Quit</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Sidecar Config -->
+      <div class="docs-section" id="sidecar-config">
+        <h2>Sidecar Config</h2>
+        <p>
+          Boozle automatically looks for a <code>.toml</code> file with the same base name as your PDF
+          in the same directory. Place <code>deck.toml</code> next to <code>deck.pdf</code> and it loads automatically.
+          Use <code>--config</code> to specify a different path.
+        </p>
+        <p>Presentation settings that travel with your PDF.</p>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span>deck.toml</span>
+            <button class="copy-btn" data-target="code-toml-full">Copy</button>
+          </div>
+          <pre id="code-toml-full"><code><span class="tok-comment"># Global defaults apply to all slides</span>
+<span class="tok-attr">auto</span>     = <span class="tok-str">"30s"</span>      <span class="tok-comment"># advance every 30 seconds</span>
+<span class="tok-attr">loop</span>     = <span class="tok-val">true</span>       <span class="tok-comment"># restart after last slide</span>
+<span class="tok-attr">progress</span> = <span class="tok-val">true</span>       <span class="tok-comment"># show countdown HUD</span>
+<span class="tok-attr">pages</span>    = <span class="tok-str">"1-5,8,10-12"</span>  <span class="tok-comment"># optional page range</span>
+<span class="tok-attr">bg</span>       = <span class="tok-str">"#0a0a0a"</span>  <span class="tok-comment"># background color</span>
+<span class="tok-attr">autoquit</span> = <span class="tok-val">false</span>      <span class="tok-comment"># don't quit at end (looping)</span>
+
+<span class="tok-comment"># Override timing for specific slides</span>
+<span class="tok-key">[[page]]</span>
+<span class="tok-attr">n</span>    = <span class="tok-num">3</span>
+<span class="tok-attr">auto</span> = <span class="tok-str">"1m"</span>    <span class="tok-comment"># complex diagram — hold for 1 minute</span>
+
+<span class="tok-key">[[page]]</span>
+<span class="tok-attr">n</span>    = <span class="tok-num">8</span>
+<span class="tok-attr">auto</span> = <span class="tok-str">"5s"</span>    <span class="tok-comment"># transition slide — move quickly</span></code></pre>
+        </div>
+
+        <h3>Sidecar config keys</h3>
+        <div class="ref-table-wrap">
+          <table class="ref-table">
+            <thead>
+              <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>auto</td><td><code>string</code></td><td>Default auto-advance duration (e.g. <code>"30s"</code>, <code>"2m"</code>)</td></tr>
+              <tr><td>loop</td><td><code>bool</code></td><td>Loop after the last slide</td></tr>
+              <tr><td>progress</td><td><code>bool</code></td><td>Show the countdown HUD overlay</td></tr>
+              <tr><td>pages</td><td><code>string</code></td><td>Page range to present (e.g. <code>"1-5,8,10-12"</code>)</td></tr>
+              <tr><td>bg</td><td><code>string</code></td><td>Background color hex (e.g. <code>"#000000"</code>)</td></tr>
+              <tr><td>autoquit</td><td><code>bool</code></td><td>Quit after the last slide</td></tr>
+              <tr><td>[[page]].n</td><td><code>int</code></td><td>Page number to override (1-indexed)</td></tr>
+              <tr><td>[[page]].auto</td><td><code>string</code></td><td>Duration override for that page</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Platform Notes -->
+      <div class="docs-section" id="platform-notes">
+        <h2>Platform Notes</h2>
+
+        <h3>macOS — Gatekeeper</h3>
+        <p>
+          If macOS Gatekeeper blocks the binary on first launch, right-click (or Control-click) the file in Finder
+          and choose <strong>Open</strong>. Confirm in the dialog. Subsequent launches work normally.
+          Alternatively, clear the quarantine attribute:
+        </p>
+        <div class="code-block">
+          <pre><code>xattr -d com.apple.quarantine /usr/local/bin/boozle</code></pre>
+        </div>
+
+        <h3>Windows — SmartScreen</h3>
+        <p>
+          Windows SmartScreen may show a warning for unsigned binaries. Click <strong>More info</strong>
+          then <strong>Run anyway</strong> if you trust the release source. Checksums are published
+          alongside each release on <a href="https://github.com/gethash/boozle/releases" target="_blank" rel="noopener">GitHub Releases</a>.
+        </p>
+
+        <h3>Linux — PATH setup</h3>
+        <p>
+          The shell script installer places the binary in <code>~/.local/bin</code>. Make sure this is on
+          your <code>$PATH</code>:
+        </p>
+        <div class="code-block">
+          <pre><code><span class="tok-comment"># Add to ~/.bashrc or ~/.zshrc</span>
+export PATH="$HOME/.local/bin:$PATH"</code></pre>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="rainbow-rule"></div>
+  <div class="container">
+    <div class="footer__inner">
+      <a href="index.html" class="footer__logo" aria-label="Boozle home">
+        <img src="logos/logo.svg" alt="boozle" width="120" height="36">
+      </a>
+      <nav class="footer__nav" aria-label="Footer">
+        <a href="https://github.com/gethash/boozle"          target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/gethash/boozle/releases" target="_blank" rel="noopener">Releases</a>
+        <a href="https://github.com/gethash/boozle/issues"   target="_blank" rel="noopener">Issues</a>
+        <a href="docs.html">Docs</a>
+        <a href="use-cases.html">Use Cases</a>
+        <a href="compare.html">Compare</a>
+      </nav>
+      <p class="footer__copy">Apache-2.0 &middot; Built in Go &middot; Zero dependencies (including this website)</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

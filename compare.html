@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boozle vs PowerPoint, Keynote, Acrobat &amp; Browser PDF Viewers</title>
+  <meta name="description" content="See when to use Boozle instead of PowerPoint, Keynote, Preview, Acrobat, browser PDF viewers, or general presentation software.">
+
+  <meta property="og:title"       content="Boozle vs PowerPoint, Keynote, Acrobat, and Impressive">
+  <meta property="og:description" content="Boozle is not a slide editor. It's what you use after your slides are already a PDF and need reliable fullscreen playback.">
+  <meta property="og:url"         content="https://boozle.io/compare.html">
+
+  <link rel="canonical" href="https://boozle.io/compare.html">
+  <link rel="icon" type="image/svg+xml" href="logos/favicon.svg">
+  <link rel="alternate icon"            href="logos/favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    .positioning-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 600px) { .positioning-grid { grid-template-columns: 1fr; } }
+
+    .positioning-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+
+    .positioning-card__tool {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-text-dim);
+      margin-bottom: 0.375rem;
+    }
+
+    .positioning-card__when {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+    }
+
+    .positioning-card__body {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    .positioning-card--highlight {
+      border-color: var(--grad-3);
+      background: color-mix(in srgb, var(--color-surface) 90%, var(--grad-3));
+    }
+
+    .positioning-card--highlight .positioning-card__tool { color: var(--grad-4); }
+
+    .compare-intro {
+      max-width: 660px;
+      margin-bottom: 2.5rem;
+    }
+
+    .compare-intro p {
+      font-size: 1.0625rem;
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="nav-logo" aria-label="Boozle home">
+      <img src="logos/logo.svg" alt="boozle" width="160" height="48">
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle navigation">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6"  x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+    <nav id="nav-links" class="nav-links" aria-label="Primary">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#install">Install</a>
+      <a href="use-cases.html">Use Cases</a>
+      <a href="docs.html">Docs</a>
+      <a href="https://github.com/gethash/boozle" class="btn btn--github btn--sm" target="_blank" rel="noopener"><svg height="16" width="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="section-eyebrow">Compare</div>
+    <h1 class="page-hero__title">Boozle vs PowerPoint, Keynote,<br>Acrobat, and browser PDF viewers</h1>
+    <p class="page-hero__lead">Boozle is not a slide editor. It's what you use after your slides are already a PDF and you need reliable fullscreen playback with timing, looping, and minimal setup.</p>
+  </div>
+</div>
+
+<main>
+  <div class="container" style="padding-block: 4rem;">
+
+    <!-- Full comparison table -->
+    <div class="section-eyebrow">Feature Comparison</div>
+    <h2 class="section-title" style="margin-bottom: 0.5rem;">Side-by-side overview</h2>
+    <p class="section-lead" style="margin-bottom: 2rem;">Comparing PDF auto-advance and playback capabilities across tools.</p>
+
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th style="width: 28%">Need</th>
+            <th>Boozle</th>
+            <th>PowerPoint / Keynote</th>
+            <th>Acrobat / Preview</th>
+            <th>Browser PDF Viewer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Auto-advance a PDF</td>
+            <td class="col-boozle check">✓ Built-in (<code>--auto</code>)</td>
+            <td class="col-other partial">Requires importing the PDF first</td>
+            <td class="col-other partial">Acrobat only, limited support</td>
+            <td class="col-other cross">Not available</td>
+          </tr>
+          <tr>
+            <td>Loop a PDF fullscreen</td>
+            <td class="col-boozle check">✓ <code>--loop</code> flag</td>
+            <td class="col-other partial">Possible but heavyweight</td>
+            <td class="col-other cross">Not designed for this</td>
+            <td class="col-other cross">Often awkward or impossible</td>
+          </tr>
+          <tr>
+            <td>Per-slide timing control</td>
+            <td class="col-boozle check">✓ TOML sidecar config</td>
+            <td class="col-other partial">Native slide files only</td>
+            <td class="col-other cross">No</td>
+            <td class="col-other cross">No</td>
+          </tr>
+          <tr>
+            <td>Single command launch</td>
+            <td class="col-boozle check">✓ One binary, one command</td>
+            <td class="col-other cross">Full app install required</td>
+            <td class="col-other partial">App + file association</td>
+            <td class="col-other partial">URL or drag-and-drop</td>
+          </tr>
+          <tr>
+            <td>Monitor / display selection</td>
+            <td class="col-boozle check">✓ <code>--monitor &lt;N&gt;</code></td>
+            <td class="col-other partial">Presenter mode only</td>
+            <td class="col-other cross">No</td>
+            <td class="col-other cross">No</td>
+          </tr>
+          <tr>
+            <td>Page range restriction</td>
+            <td class="col-boozle check">✓ <code>--pages 1-5,8</code></td>
+            <td class="col-other partial">Custom slide shows (complex)</td>
+            <td class="col-other cross">No</td>
+            <td class="col-other cross">No</td>
+          </tr>
+          <tr>
+            <td>Progress / countdown HUD</td>
+            <td class="col-boozle check">✓ <code>--progress</code></td>
+            <td class="col-other partial">Presenter view (not audience-facing)</td>
+            <td class="col-other cross">No</td>
+            <td class="col-other cross">No</td>
+          </tr>
+          <tr>
+            <td>HiDPI / Retina rendering</td>
+            <td class="col-boozle check">✓ Native pixel density</td>
+            <td class="col-boozle check">✓ Supported</td>
+            <td class="col-boozle check">✓ Supported</td>
+            <td class="col-other partial">Browser-dependent</td>
+          </tr>
+          <tr>
+            <td>Designed for kiosk / lobby loops</td>
+            <td class="col-boozle check">✓ Primary use case</td>
+            <td class="col-other partial">Possible, not purpose-built</td>
+            <td class="col-other cross">No</td>
+            <td class="col-other cross">No</td>
+          </tr>
+          <tr>
+            <td>Zero dependencies</td>
+            <td class="col-boozle check">✓ Single static binary</td>
+            <td class="col-other cross">Full install required</td>
+            <td class="col-other cross">Full install required</td>
+            <td class="col-other cross">Browser + OS required</td>
+          </tr>
+          <tr>
+            <td>Cross-platform CLI workflow</td>
+            <td class="col-boozle check">✓ macOS, Linux, Windows</td>
+            <td class="col-other cross">GUI only</td>
+            <td class="col-other cross">GUI only</td>
+            <td class="col-other partial">Limited</td>
+          </tr>
+          <tr>
+            <td>Sidecar config file</td>
+            <td class="col-boozle check">✓ TOML travels with PDF</td>
+            <td class="col-other cross">No</td>
+            <td class="col-other cross">No</td>
+            <td class="col-other cross">No</td>
+          </tr>
+          <tr>
+            <td>Open source</td>
+            <td class="col-boozle check">✓ Apache-2.0</td>
+            <td class="col-other cross">Commercial</td>
+            <td class="col-other cross">Commercial</td>
+            <td class="col-other partial">Browser-dependent</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- When to use what -->
+    <div style="margin-top: 4rem;">
+      <div class="section-eyebrow">Positioning</div>
+      <h2 class="section-title" style="margin-bottom: 0.5rem;">The right tool for each job</h2>
+      <p class="section-lead" style="margin-bottom: 0;">Each tool excels at something different. Here's when to reach for each one.</p>
+
+      <div class="positioning-grid">
+
+        <div class="positioning-card positioning-card--highlight">
+          <div class="positioning-card__tool">Boozle</div>
+          <div class="positioning-card__when">Use when the PDF needs to present itself.</div>
+          <p class="positioning-card__body">
+            Your slides are already a PDF. You need them to open fullscreen, advance on a timer,
+            loop cleanly, and look sharp — on the screen you choose, with no manual interaction.
+            Trade show loops, lobby screens, kiosks, hands-free talks.
+          </p>
+        </div>
+
+        <div class="positioning-card">
+          <div class="positioning-card__tool">PowerPoint / Keynote</div>
+          <div class="positioning-card__when">Use when you need to design and edit slides.</div>
+          <p class="positioning-card__body">
+            Full presentation authoring tools with rich animation, transition, and layout capabilities.
+            Best when you're still building the deck, not just playing it.
+            Export to PDF when you're done — then use Boozle.
+          </p>
+        </div>
+
+        <div class="positioning-card">
+          <div class="positioning-card__tool">Adobe Acrobat / Preview</div>
+          <div class="positioning-card__when">Use when reading, annotating, or reviewing PDFs.</div>
+          <p class="positioning-card__body">
+            The right tool for interacting with PDFs as documents — commenting, signing, editing,
+            extracting pages. Not designed for unattended fullscreen presentation loops.
+          </p>
+        </div>
+
+        <div class="positioning-card">
+          <div class="positioning-card__tool">Browser PDF Viewer</div>
+          <div class="positioning-card__when">Use for one-off viewing in a web context.</div>
+          <p class="positioning-card__body">
+            Convenient for sharing and viewing inline. No loop mode, no auto-advance,
+            no monitor selection, no kiosk controls. Fine for casual review; not for presenting.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Impressive comparison callout -->
+    <div style="margin-top: 3rem; padding: 2rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg);">
+      <h3 style="font-size: 1.0625rem; font-weight: 700; margin-bottom: 0.625rem;">Boozle vs Impressive</h3>
+      <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.7; max-width: 68ch;">
+        Impressive is a classic lightweight PDF presenter with similar goals — fullscreen playback,
+        keyboard navigation, and a thumbnail overview. Boozle modernises this approach:
+        it ships as a single static binary (no Python runtime or pygame required),
+        supports HiDPI displays natively, offers per-slide TOML config,
+        and runs on macOS, Linux, and Windows with native builds.
+        If you've used Impressive before, Boozle picks up where it left off.
+      </p>
+    </div>
+
+  </div>
+</main>
+
+<!-- CTA -->
+<section class="section" style="border-top: 1px solid var(--color-border);">
+  <div class="container" style="max-width: 800px;">
+    <div class="cta-banner">
+      <h2 class="cta-banner__title">The PDF is already enough.</h2>
+      <p class="cta-banner__body">Boozle adds the presentation behavior. Install it and run your first auto-advancing slideshow in under a minute.</p>
+      <div class="cta-banner__actions">
+        <a href="index.html#install" class="btn btn--primary btn--lg">Download Boozle</a>
+        <a href="https://github.com/gethash/boozle" class="btn btn--ghost btn--lg" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+      <p class="cta-banner__trust">Open source &middot; Apache-2.0 &middot; Zero dependencies</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="rainbow-rule"></div>
+  <div class="container">
+    <div class="footer__inner">
+      <a href="index.html" class="footer__logo" aria-label="Boozle home">
+        <img src="logos/logo.svg" alt="boozle" width="120" height="36">
+      </a>
+      <nav class="footer__nav" aria-label="Footer">
+        <a href="https://github.com/gethash/boozle"          target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/gethash/boozle/releases" target="_blank" rel="noopener">Releases</a>
+        <a href="https://github.com/gethash/boozle/issues"   target="_blank" rel="noopener">Issues</a>
+        <a href="docs.html">Docs</a>
+        <a href="use-cases.html">Use Cases</a>
+        <a href="compare.html">Compare</a>
+      </nav>
+      <p class="footer__copy">Apache-2.0 &middot; Built in Go &middot; Zero dependencies (including this website)</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

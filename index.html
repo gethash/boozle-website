@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boozle — Auto-Advancing PDF Slideshow App</title>
+  <meta name="description" content="Turn any PDF into a fullscreen, timed presentation for booths, kiosks, lobby screens, and hands-free presentations on macOS, Linux, and Windows.">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="Boozle — Auto-Advancing PDF Slideshows, Without the Bloat">
+  <meta property="og:description" content="Single binary. No runtime. Auto-advance, loop, per-slide timing, HiDPI rendering.">
+  <meta property="og:url"         content="https://boozle.io/">
+  <meta property="og:image"       content="logos/logo.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Boozle — Auto-Advancing PDF Slideshows, Without the Bloat">
+  <meta name="twitter:description" content="Single binary. No runtime. Auto-advance, loop, per-slide timing, HiDPI rendering.">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://boozle.io/">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="logos/favicon.svg">
+  <link rel="alternate icon"            href="logos/favicon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Boozle",
+        "applicationCategory": "PresentationApplication",
+        "operatingSystem": "macOS, Linux, Windows",
+        "description": "Boozle is an open-source PDF presenter for fullscreen, timed, auto-advancing slideshows.",
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "codeRepository": "https://github.com/gethash/boozle",
+        "url": "https://boozle.io/",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Boozle?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Boozle is a lightweight, open-source PDF presenter for fullscreen, timed, auto-advancing slideshows on macOS, Linux, and Windows. It runs as a single static binary with no installer or runtime required." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I auto-advance a PDF?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the --auto flag with any duration (e.g. --auto 30s or --auto 2m) to have Boozle advance your PDF slides automatically." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I loop a PDF slideshow?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Add the --loop flag and Boozle will restart from slide 1 after the last page, making it perfect for kiosks, lobby screens, and booth displays." }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Boozle work on macOS, Linux, and Windows?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Boozle provides native binaries for macOS (Intel and Apple Silicon), Linux x86_64, and Windows." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I set different timings per PDF page?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Create a sidecar TOML config file next to your PDF and specify per-slide overrides. The global default applies to all other pages." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I choose which monitor to use?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the --monitor flag followed by the display index (e.g. --monitor 1) to open the presentation on a specific connected display." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="nav-logo" aria-label="Boozle home">
+      <img src="logos/logo.svg" alt="boozle" width="160" height="48">
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle navigation">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6"  x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+    <nav id="nav-links" class="nav-links" aria-label="Primary">
+      <a href="#features">Features</a>
+      <a href="#install">Install</a>
+      <a href="#use-cases">Use Cases</a>
+      <a href="docs.html">Docs</a>
+      <a href="https://github.com/gethash/boozle" class="btn btn--github btn--sm" target="_blank" rel="noopener"><svg height="16" width="16" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════ -->
+<section id="hero" class="hero">
+  <div class="container hero__inner">
+
+    <div class="hero__content">
+      <div class="hero__eyebrow">PDF Auto-Advance Presenter</div>
+      <h1 class="hero__title">
+        Auto-advancing PDF slideshows,<br>
+        <span class="gradient-text">without the bloat.</span>
+      </h1>
+      <p class="hero__lead">
+        Boozle turns any PDF into a fullscreen, timed presentation.
+        Use it for trade show booths, kiosks, lobby screens, classrooms,
+        and hands-free slide playback. No presentation suite. No browser
+        workaround. No runtime to install.
+      </p>
+      <div class="hero__cta">
+        <a href="#install" class="btn btn--primary btn--lg">Download Boozle</a>
+        <a href="https://github.com/gethash/boozle" class="btn btn--ghost btn--lg" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+      <p class="hero__trust">Open source &middot; Apache-2.0 &middot; Built in Go &middot; macOS &middot; Linux &middot; Windows</p>
+    </div>
+
+    <!-- Terminal mockup -->
+    <div class="hero__visual" aria-hidden="true">
+      <div class="terminal">
+        <div class="terminal__bar">
+          <span class="terminal__dot terminal__dot--red"></span>
+          <span class="terminal__dot terminal__dot--yellow"></span>
+          <span class="terminal__dot terminal__dot--green"></span>
+          <span class="terminal__title">boozle — booth display</span>
+        </div>
+        <div class="terminal__body">
+          <div class="term-line">
+            <span class="term-prompt">$</span>
+            <span class="term-cmd">boozle deck.pdf
+              <span class="term-flag">--auto</span> 20s
+              <span class="term-flag">--loop</span>
+              <span class="term-flag">--progress</span>
+            </span>
+          </div>
+          <div class="term-output">Loaded 12 slides &middot; display 1 (2560&times;1440 HiDPI)</div>
+          <div class="term-output">Cache warm &middot; pre-fetching next slides&hellip;</div>
+          <div class="term-spacer"></div>
+          <div class="terminal__countdown">
+            <div class="countdown__meta">
+              <span id="hero-page" data-format="short">Slide 03 of 12</span>
+            </div>
+            <div class="countdown__timer" id="hero-timer">00:14</div>
+            <div class="countdown__bar-track">
+              <div class="countdown__bar-fill" id="hero-bar" style="width: 30%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="hero__glow" aria-hidden="true"></div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     PROBLEM
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="problem">
+  <div class="container">
+    <h2 class="section-title">A PDF viewer is too passive.<br>A presentation suite is too much.</h2>
+    <p class="section-lead">
+      Sometimes you already have the slides exported as a PDF. You just need them to
+      open fullscreen, advance on a timer, loop cleanly, and look sharp on the screen you choose.
+    </p>
+    <div class="problem-points">
+      <div class="problem-point anim-fade-up">
+        <svg class="problem-point__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <p class="problem-point__text">
+          <strong>Manual clicking gets old.</strong> Auto-advance your PDF every few seconds, minutes,
+          or milliseconds — with a configurable interval per slide.
+        </p>
+      </div>
+      <div class="problem-point anim-fade-up">
+        <svg class="problem-point__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+        </svg>
+        <p class="problem-point__text">
+          <strong>Generic PDF viewers are not presentation tools.</strong> Loop mode, progress overlays,
+          page ranges, monitor selection, and slide overview are built for presenting — not reading.
+        </p>
+      </div>
+      <div class="problem-point anim-fade-up">
+        <svg class="problem-point__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18"/>
+        </svg>
+        <p class="problem-point__text">
+          <strong>Big presentation suites are overkill.</strong> Boozle is focused on one job —
+          reliable fullscreen PDF playback. Download, run, present.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     FEATURES
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-eyebrow">Features</div>
+    <h2 class="section-title">Made for timed PDF presentations.</h2>
+    <p class="section-lead">Everything a kiosk needs. Nothing it doesn't.</p>
+
+    <div class="features-grid">
+
+      <article class="feature-card anim-fade-up">
+        <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <h3 class="feature-card__title">Auto-Advance Timer</h3>
+        <p class="feature-card__body">Set your PDF to move forward automatically. Any duration — seconds, minutes, or milliseconds via <code>--auto</code>.</p>
+      </article>
+
+      <article class="feature-card anim-fade-up">
+        <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/>
+        </svg>
+        <h3 class="feature-card__title">Loop Mode</h3>
+        <p class="feature-card__body">Perfect for booths, signage, kiosks, and lobby screens. Add <code>--loop</code> and the deck runs forever without a hiccup.</p>
+      </article>
+
+      <article class="feature-card anim-fade-up">
+        <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="14" y2="12"/><line x1="4" y1="18" x2="17" y2="18"/>
+          <circle cx="21" cy="6" r="2" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="2" fill="currentColor" stroke="none"/><circle cx="20" cy="18" r="2" fill="currentColor" stroke="none"/>
+        </svg>
+        <h3 class="feature-card__title">Per-Slide Config</h3>
+        <p class="feature-card__body">Override timing per slide using a TOML sidecar file that lives next to the PDF. Important slides get more time; quick slides get less.</p>
+      </article>
+
+      <article class="feature-card anim-fade-up">
+        <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8a2 2 0 00-2 2v2h12V5a2 2 0 00-2-2z"/>
+          <line x1="12" y1="12" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/>
+        </svg>
+        <h3 class="feature-card__title">Progress Overlay</h3>
+        <p class="feature-card__body">On-screen HUD shows the current page and auto-advance countdown in real time. Enable it with <code>--progress</code>.</p>
+      </article>
+
+      <article class="feature-card anim-fade-up">
+        <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        <h3 class="feature-card__title">Slide Overview</h3>
+        <p class="feature-card__body">Press <kbd>Tab</kbd> to reveal a thumbnail grid of all slides. Jump to any page instantly without breaking the loop.</p>
+      </article>
+
+      <article class="feature-card anim-fade-up">
+        <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+        <h3 class="feature-card__title">HiDPI Support</h3>
+        <p class="feature-card__body">Re-rasterises pages at native pixel density on Retina and 4K displays. Your PDFs look exactly as designed.</p>
+      </article>
+
+      <article class="feature-card anim-fade-up">
+        <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+        </svg>
+        <h3 class="feature-card__title">Cross-Platform</h3>
+        <p class="feature-card__body">Native binaries for macOS (Intel &amp; Apple Silicon), Linux x86_64, and Windows. One tool for every screen.</p>
+      </article>
+
+      <article class="feature-card anim-fade-up">
+        <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="3" width="20" height="13" rx="2"/><rect x="7" y="17" width="10" height="4" rx="1"/>
+          <line x1="5" y1="21" x2="19" y2="21"/>
+        </svg>
+        <h3 class="feature-card__title">Multi-Monitor</h3>
+        <p class="feature-card__body">Choose which connected display to present on via <code>--monitor</code>. Set it and forget it — perfect for dedicated booth screens.</p>
+      </article>
+
+      <article class="feature-card anim-fade-up">
+        <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        <h3 class="feature-card__title">Single Binary</h3>
+        <p class="feature-card__body">Download, run, present. No installer, no runtime, no package manager. Copy the binary and it just works.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     INSTALL
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="install">
+  <div class="container">
+    <div class="section-eyebrow">Install</div>
+    <h2 class="section-title">Get Boozle.</h2>
+    <p class="section-lead">Choose your platform. One command and you're ready.</p>
+
+    <div role="tablist" aria-label="Installation methods" class="tabs">
+      <button role="tab" id="tab-btn-brew"   aria-selected="true"  aria-controls="tab-brew"   class="tab-btn">Homebrew</button>
+      <button role="tab" id="tab-btn-shell"  aria-selected="false" aria-controls="tab-shell"  class="tab-btn">macOS / Linux</button>
+      <button role="tab" id="tab-btn-win"    aria-selected="false" aria-controls="tab-win"    class="tab-btn">Windows</button>
+      <button role="tab" id="tab-btn-manual" aria-selected="false" aria-controls="tab-manual" class="tab-btn">Manual</button>
+    </div>
+
+    <!-- Homebrew -->
+    <div role="tabpanel" id="tab-brew" aria-labelledby="tab-btn-brew" class="tab-panel is-active">
+      <div class="code-block">
+        <div class="code-block__header">
+          <span>Terminal</span>
+          <button class="copy-btn" data-target="code-brew">Copy</button>
+        </div>
+        <pre id="code-brew"><code><span class="tok-comment"># Add the tap, then install</span>
+brew tap gethash/tap
+brew install boozle</code></pre>
+      </div>
+      <p class="install-note">Homebrew keeps boozle up to date with <code>brew upgrade</code>.</p>
+    </div>
+
+    <!-- Shell script -->
+    <div role="tabpanel" id="tab-shell" aria-labelledby="tab-btn-shell" class="tab-panel">
+      <div class="code-block">
+        <div class="code-block__header">
+          <span>Terminal — macOS / Linux</span>
+          <button class="copy-btn" data-target="code-shell">Copy</button>
+        </div>
+        <pre id="code-shell"><code>curl -fsSL https://github.com/gethash/boozle/releases/latest/download/install.sh | sh</code></pre>
+      </div>
+      <p class="install-note">Downloads the latest release for your OS and architecture, places the binary in <code>~/.local/bin</code>.</p>
+    </div>
+
+    <!-- Windows -->
+    <div role="tabpanel" id="tab-win" aria-labelledby="tab-btn-win" class="tab-panel">
+      <div class="code-block">
+        <div class="code-block__header">
+          <span>PowerShell</span>
+          <button class="copy-btn" data-target="code-win">Copy</button>
+        </div>
+        <pre id="code-win"><code>iwr -useb https://github.com/gethash/boozle/releases/latest/download/install.ps1 | iex</code></pre>
+      </div>
+      <p class="install-note">If Windows SmartScreen warns on first run, you can proceed by clicking "More info → Run anyway" if you trust the release source.</p>
+    </div>
+
+    <!-- Manual -->
+    <div role="tabpanel" id="tab-manual" aria-labelledby="tab-btn-manual" class="tab-panel">
+      <ol class="install-steps">
+        <li>Go to the <a href="https://github.com/gethash/boozle/releases/latest" target="_blank" rel="noopener">latest GitHub Release</a>.</li>
+        <li>Download the binary for your platform:
+          <ul style="list-style: disc; padding-left: 1.5rem; margin-top: 0.5rem; color: var(--color-text-muted);">
+            <li><strong>macOS Apple Silicon</strong> — <code>boozle-darwin-arm64</code></li>
+            <li><strong>macOS Intel</strong> — <code>boozle-darwin-amd64</code></li>
+            <li><strong>Linux x86_64</strong> — <code>boozle-linux-amd64</code></li>
+            <li><strong>Windows</strong> — <code>boozle-windows-amd64.exe</code></li>
+          </ul>
+        </li>
+        <li>Make it executable and move it onto your PATH (macOS / Linux):
+          <div class="code-block" style="margin-top: 0.5rem;">
+            <pre><code>chmod +x boozle-darwin-arm64
+mv boozle-darwin-arm64 /usr/local/bin/boozle</code></pre>
+          </div>
+          <p class="install-note" style="margin-top: 0.5rem;">On macOS, if Gatekeeper blocks the first launch, right-click the binary → Open, then confirm. Subsequent launches work normally.</p>
+        </li>
+        <li>Verify: <code>boozle --version</code></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     USE CASES PREVIEW
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="use-cases">
+  <div class="container">
+    <div class="section-eyebrow">Use Cases</div>
+    <h2 class="section-title">Built for unattended screens.</h2>
+    <p class="section-lead">Wherever a PDF needs to run itself, Boozle fits.</p>
+
+    <div class="use-case-cards">
+
+      <div class="use-case-card anim-fade-up">
+        <div class="use-case-card__title">
+          <svg class="use-case-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          Trade Show Booth
+        </div>
+        <p class="use-case-card__body">Run your booth presentation all day from a PDF. Export the deck, start Boozle in fullscreen, and let it loop for the entire event.</p>
+        <div class="code-block">
+          <pre><code>boozle booth.pdf <span class="tok-flag">--auto</span> 15s <span class="tok-flag">--loop</span> <span class="tok-flag">--progress</span></code></pre>
+        </div>
+      </div>
+
+      <div class="use-case-card anim-fade-up">
+        <div class="use-case-card__title">
+          <svg class="use-case-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          Lobby Screen
+        </div>
+        <p class="use-case-card__body">Turn any display into a PDF signage screen — welcome messages, event schedules, announcements, or donor lists.</p>
+        <div class="code-block">
+          <pre><code>boozle lobby.pdf <span class="tok-flag">--auto</span> 30s <span class="tok-flag">--loop</span></code></pre>
+        </div>
+      </div>
+
+      <div class="use-case-card anim-fade-up">
+        <div class="use-case-card__title">
+          <svg class="use-case-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18" stroke-width="2.5"/>
+          </svg>
+          Kiosk Display
+        </div>
+        <p class="use-case-card__body">Museums, galleries, product displays, and information desks — a focused PDF viewer for kiosk-style playback on any screen.</p>
+        <div class="code-block">
+          <pre><code>boozle kiosk.pdf <span class="tok-flag">--auto</span> 20s <span class="tok-flag">--loop</span> <span class="tok-flag">--pages</span> 1-12</code></pre>
+        </div>
+      </div>
+
+      <div class="use-case-card anim-fade-up">
+        <div class="use-case-card__title">
+          <svg class="use-case-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+          Classroom / Demo
+        </div>
+        <p class="use-case-card__body">Teach or demo hands-free. Use auto-advance for pacing, pause when discussion starts, and pick up on the second monitor.</p>
+        <div class="code-block">
+          <pre><code>boozle lesson.pdf <span class="tok-flag">--auto</span> 45s <span class="tok-flag">--monitor</span> 1 <span class="tok-flag">--progress</span></code></pre>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+      <a href="use-cases.html" class="btn btn--ghost btn--md">See all use cases →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     USAGE / QUICK START
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="usage">
+  <div class="container">
+    <div class="section-eyebrow">Quick Start</div>
+    <h2 class="section-title">Up and running in seconds.</h2>
+    <p class="section-lead">A single command is all it takes.</p>
+
+    <div class="usage-grid">
+
+      <!-- Left: CLI examples -->
+      <div>
+        <div class="code-block">
+          <div class="code-block__header">
+            <span>Common commands</span>
+            <button class="copy-btn" data-target="code-usage">Copy</button>
+          </div>
+          <pre id="code-usage"><code><span class="tok-comment"># Basic: advance every 30 seconds</span>
+boozle slides.pdf <span class="tok-flag">--auto</span> 30s
+
+<span class="tok-comment"># Loop forever with progress overlay</span>
+boozle slides.pdf <span class="tok-flag">--auto</span> 30s <span class="tok-flag">--loop</span> <span class="tok-flag">--progress</span>
+
+<span class="tok-comment"># Use second monitor, quit after last slide</span>
+boozle slides.pdf <span class="tok-flag">--auto</span> 1m <span class="tok-flag">--monitor</span> 1 <span class="tok-flag">--autoquit</span>
+
+<span class="tok-comment"># Present only pages 3 to 9</span>
+boozle slides.pdf <span class="tok-flag">--auto</span> 20s <span class="tok-flag">--pages</span> 3-9</code></pre>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <span>slides.toml — sidecar config</span>
+            <button class="copy-btn" data-target="code-toml">Copy</button>
+          </div>
+          <pre id="code-toml"><code><span class="tok-attr">auto</span>     = <span class="tok-str">"30s"</span>
+<span class="tok-attr">loop</span>     = <span class="tok-val">true</span>
+<span class="tok-attr">progress</span> = <span class="tok-val">true</span>
+
+<span class="tok-comment"># Hold slide 3 for 2 minutes</span>
+<span class="tok-key">[[page]]</span>
+<span class="tok-attr">n</span>    = <span class="tok-num">3</span>
+<span class="tok-attr">auto</span> = <span class="tok-str">"2m"</span>
+
+<span class="tok-comment"># Quick slide — 10 seconds</span>
+<span class="tok-key">[[page]]</span>
+<span class="tok-attr">n</span>    = <span class="tok-num">7</span>
+<span class="tok-attr">auto</span> = <span class="tok-str">"10s"</span></code></pre>
+        </div>
+      </div>
+
+      <!-- Right: HUD mockup -->
+      <div aria-hidden="true">
+        <div class="hud-mockup">
+          <div class="hud-mockup__screen">
+            <div class="fake-slide">
+              <div class="fake-slide__title"></div>
+              <div class="fake-slide__bar"></div>
+              <div class="fake-slide__bar fake-slide__bar--med"></div>
+              <div class="fake-slide__bar fake-slide__bar--short"></div>
+              <div class="fake-slide__bar fake-slide__bar--long"></div>
+              <div class="fake-slide__bar fake-slide__bar--short"></div>
+            </div>
+            <div class="hud-overlay">
+              <div class="hud-overlay__page" id="hud-page">05 / 12</div>
+              <div class="hud-overlay__time" id="hud-timer">00:22</div>
+              <div class="hud-overlay__bar-track">
+                <div class="hud-overlay__bar-fill" id="hud-bar" style="width: 27%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="hud-mockup__label">boozle &mdash; display 1 &middot; slide 5 of 12 &middot; looping</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Keyboard shortcuts -->
+    <div class="keybindings">
+      <div class="keybindings__title">Keyboard Controls</div>
+      <div class="keybindings__grid">
+        <div class="keybind"><kbd>→</kbd> / <kbd>Space</kbd> <span>Next slide</span></div>
+        <div class="keybind"><kbd>←</kbd> <span>Previous slide</span></div>
+        <div class="keybind"><kbd>Tab</kbd> <span>Slide overview</span></div>
+        <div class="keybind"><kbd>p</kbd> <span>Pause / resume</span></div>
+        <div class="keybind"><kbd>f</kbd> <span>Toggle fullscreen</span></div>
+        <div class="keybind"><kbd>b</kbd> <span>Blackout screen</span></div>
+        <div class="keybind"><kbd>w</kbd> <span>Whiteout screen</span></div>
+        <div class="keybind"><kbd>0–9</kbd> + <kbd>Enter</kbd> <span>Jump to page</span></div>
+        <div class="keybind"><kbd>Home</kbd> / <kbd>End</kbd> <span>First / last slide</span></div>
+        <div class="keybind"><kbd>q</kbd> / <kbd>Esc</kbd> <span>Quit</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     COMPARISON PREVIEW
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="compare">
+  <div class="container">
+    <div class="section-eyebrow">Compare</div>
+    <h2 class="section-title">The right tool for the job.</h2>
+    <p class="section-lead">Boozle is not a slide editor. It's what you use after your slides are already a PDF.</p>
+
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Need</th>
+            <th>Boozle</th>
+            <th>PowerPoint / Keynote</th>
+            <th>Generic PDF Viewer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Auto-advance a PDF</td>
+            <td class="col-boozle check">✓ Built-in</td>
+            <td class="col-other partial">Requires import / export</td>
+            <td class="col-other cross">Rarely supported</td>
+          </tr>
+          <tr>
+            <td>Loop fullscreen</td>
+            <td class="col-boozle check">✓ <code>--loop</code> flag</td>
+            <td class="col-other partial">Possible but heavy</td>
+            <td class="col-other cross">Often awkward</td>
+          </tr>
+          <tr>
+            <td>Per-slide timing</td>
+            <td class="col-boozle check">✓ TOML sidecar</td>
+            <td class="col-other partial">Native slide files only</td>
+            <td class="col-other cross">Rare</td>
+          </tr>
+          <tr>
+            <td>Single command launch</td>
+            <td class="col-boozle check">✓ One binary</td>
+            <td class="col-other cross">No</td>
+            <td class="col-other partial">Sometimes</td>
+          </tr>
+          <tr>
+            <td>Monitor selection</td>
+            <td class="col-boozle check">✓ <code>--monitor</code></td>
+            <td class="col-other partial">Presenter mode only</td>
+            <td class="col-other cross">No</td>
+          </tr>
+          <tr>
+            <td>Designed for kiosk loops</td>
+            <td class="col-boozle check">✓ Primary use case</td>
+            <td class="col-other partial">Partly</td>
+            <td class="col-other cross">No</td>
+          </tr>
+          <tr>
+            <td>Zero dependencies</td>
+            <td class="col-boozle check">✓ Static binary</td>
+            <td class="col-other cross">Full install required</td>
+            <td class="col-other cross">Often requires runtime</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="text-align: center; margin-top: 1.5rem;">
+      <a href="compare.html" class="btn btn--ghost btn--md">Full comparison →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     FAQ
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="faq">
+  <div class="container" style="max-width: 720px;">
+    <div class="section-eyebrow">FAQ</div>
+    <h2 class="section-title">Common questions.</h2>
+
+    <div class="faq-list">
+
+      <div class="faq-item is-open">
+        <button class="faq-question" aria-expanded="true">
+          What is Boozle?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          Boozle is a lightweight, open-source PDF presenter for fullscreen, timed, auto-advancing slideshows on macOS, Linux, and Windows. It runs as a single static binary with no installer or runtime required.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I auto-advance a PDF?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          Yes. Use <code>--auto</code> with any duration (e.g. <code>--auto 30s</code> or <code>--auto 2m</code>) and Boozle will advance slides automatically at that interval.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I loop a PDF slideshow?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          Yes. Add <code>--loop</code> and Boozle restarts from slide 1 after the last page. It runs indefinitely — ideal for kiosk displays and booth screens.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Does it work on macOS, Linux, and Windows?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          Yes. Boozle provides native binaries for macOS (Intel and Apple Silicon), Linux x86_64, and Windows. Install via Homebrew, shell script, PowerShell, or manual download.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I set different timings per page?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          Yes. Create a <code>.toml</code> sidecar file next to your PDF with <code>[[page]]</code> entries specifying an <code>n</code> (page number) and <code>auto</code> override. The global default applies to all other pages.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I choose which monitor to use?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          Yes. Use <code>--monitor 1</code> (or any display index) to open the presentation on a specific connected display. Display 0 is the primary screen.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CTA BANNER
+══════════════════════════════════════════════════════════ -->
+<section class="section" id="cta">
+  <div class="container" style="max-width: 800px;">
+    <div class="cta-banner">
+      <h2 class="cta-banner__title">Ready to run your PDF?</h2>
+      <p class="cta-banner__body">
+        Download Boozle and have your first auto-advancing presentation
+        running in under a minute.
+      </p>
+      <div class="cta-banner__actions">
+        <a href="#install" class="btn btn--primary btn--lg">Download Boozle</a>
+        <a href="https://github.com/gethash/boozle" class="btn btn--ghost btn--lg" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+      <p class="cta-banner__trust">Open source · Apache-2.0 · Zero dependencies</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="rainbow-rule"></div>
+  <div class="container">
+    <div class="footer__inner">
+      <a href="index.html" class="footer__logo" aria-label="Boozle home">
+        <img src="logos/logo.svg" alt="boozle" width="120" height="36">
+      </a>
+      <nav class="footer__nav" aria-label="Footer">
+        <a href="https://github.com/gethash/boozle"          target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/gethash/boozle/releases" target="_blank" rel="noopener">Releases</a>
+        <a href="https://github.com/gethash/boozle/issues"   target="_blank" rel="noopener">Issues</a>
+        <a href="docs.html">Docs</a>
+        <a href="use-cases.html">Use Cases</a>
+        <a href="compare.html">Compare</a>
+      </nav>
+      <p class="footer__copy">Apache-2.0 &middot; Built in Go &middot; Zero dependencies (including this website)</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
