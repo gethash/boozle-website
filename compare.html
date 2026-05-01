@@ -6,7 +6,7 @@
   <title>Boozle vs PowerPoint, Keynote, Acrobat &amp; Browser PDF Viewers</title>
   <meta name="description" content="See when to use Boozle instead of PowerPoint, Keynote, Preview, Acrobat, browser PDF viewers, or general presentation software.">
 
-  <meta property="og:title"       content="Boozle vs PowerPoint, Keynote, Acrobat, and Impressive">
+  <meta property="og:title"       content="Boozle vs PowerPoint, Keynote, Acrobat, and Browser PDF Viewers">
   <meta property="og:description" content="Boozle is not a slide editor. It's what you use after your slides are already a PDF and need reliable fullscreen playback.">
   <meta property="og:url"         content="https://boozle.io/compare.html">
 
@@ -14,9 +14,6 @@
   <link rel="icon" type="image/svg+xml" href="logos/favicon.svg">
   <link rel="alternate icon"            href="logos/favicon.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 
   <style>
@@ -75,6 +72,38 @@
       line-height: 1.7;
       margin-bottom: 1rem;
     }
+
+    .compare-main {
+      padding-block: 4rem;
+    }
+
+    .compare-heading {
+      margin-bottom: 0.5rem;
+    }
+
+    .compare-lead {
+      margin-bottom: 2rem;
+    }
+
+    .compare-need-col {
+      width: 28%;
+    }
+
+    .compare-positioning {
+      margin-top: 4rem;
+    }
+
+    .compare-positioning-lead {
+      margin-bottom: 0;
+    }
+
+    .compare-cta-section {
+      border-top: 1px solid var(--color-border);
+    }
+
+    .compare-cta-container {
+      max-width: 800px;
+    }
   </style>
 </head>
 <body>
@@ -110,18 +139,18 @@
 </div>
 
 <main>
-  <div class="container" style="padding-block: 4rem;">
+  <div class="container compare-main">
 
     <!-- Full comparison table -->
     <div class="section-eyebrow">Feature Comparison</div>
-    <h2 class="section-title" style="margin-bottom: 0.5rem;">Side-by-side overview</h2>
-    <p class="section-lead" style="margin-bottom: 2rem;">Comparing PDF auto-advance and playback capabilities across tools.</p>
+    <h2 class="section-title compare-heading">Side-by-side overview</h2>
+    <p class="section-lead compare-lead">Comparing PDF auto-advance and playback capabilities across tools.</p>
 
     <div class="compare-table-wrap">
       <table class="compare-table">
         <thead>
           <tr>
-            <th style="width: 28%">Need</th>
+            <th class="compare-need-col">Need</th>
             <th>Boozle</th>
             <th>PowerPoint / Keynote</th>
             <th>Acrobat / Preview</th>
@@ -225,10 +254,10 @@
     </div>
 
     <!-- When to use what -->
-    <div style="margin-top: 4rem;">
+    <div class="compare-positioning">
       <div class="section-eyebrow">Positioning</div>
-      <h2 class="section-title" style="margin-bottom: 0.5rem;">The right tool for each job</h2>
-      <p class="section-lead" style="margin-bottom: 0;">Each tool excels at something different. Here's when to reach for each one.</p>
+      <h2 class="section-title compare-heading">The right tool for each job</h2>
+      <p class="section-lead compare-positioning-lead">Each tool excels at something different. Here's when to reach for each one.</p>
 
       <div class="positioning-grid">
 
@@ -273,25 +302,12 @@
       </div>
     </div>
 
-    <!-- Impressive comparison callout -->
-    <div style="margin-top: 3rem; padding: 2rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg);">
-      <h3 style="font-size: 1.0625rem; font-weight: 700; margin-bottom: 0.625rem;">Boozle vs Impressive</h3>
-      <p style="font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.7; max-width: 68ch;">
-        Impressive is a classic lightweight PDF presenter with similar goals — fullscreen playback,
-        keyboard navigation, and a thumbnail overview. Boozle modernises this approach:
-        it ships as a single static binary (no Python runtime or pygame required),
-        supports HiDPI displays natively, offers per-slide TOML config,
-        and runs on macOS, Linux, and Windows with native builds.
-        If you've used Impressive before, Boozle picks up where it left off.
-      </p>
-    </div>
-
   </div>
 </main>
 
 <!-- CTA -->
-<section class="section" style="border-top: 1px solid var(--color-border);">
-  <div class="container" style="max-width: 800px;">
+<section class="section compare-cta-section">
+  <div class="container compare-cta-container">
     <div class="cta-banner">
       <h2 class="cta-banner__title">The PDF is already enough.</h2>
       <p class="cta-banner__body">Boozle adds the presentation behavior. Install it and run your first auto-advancing slideshow in under a minute.</p>
@@ -318,8 +334,10 @@
         <a href="docs.html">Docs</a>
         <a href="use-cases.html">Use Cases</a>
         <a href="compare.html">Compare</a>
+        <a href="legal-notice.html">Legal Notice</a>
+        <a href="privacy.html">Privacy</a>
       </nav>
-      <p class="footer__copy">Apache-2.0 &middot; Built in Go &middot; Zero dependencies (including this website)</p>
+      <p class="footer__copy">Open Source &middot; Built with AI &middot; Zero dependencies</p>
     </div>
   </div>
 </footer>

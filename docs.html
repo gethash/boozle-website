@@ -14,9 +14,6 @@
   <link rel="icon" type="image/svg+xml" href="logos/favicon.svg">
   <link rel="alternate icon"            href="logos/favicon.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -59,6 +56,7 @@
       <div class="docs-sidebar__title">On this page</div>
       <nav class="docs-sidebar__nav" aria-label="Docs sections">
         <a href="#quick-start">Quick Start</a>
+        <a href="#whats-new">What's New</a>
         <a href="#common-commands">Common Commands</a>
         <a href="#cli-reference">CLI Reference</a>
         <a href="#keyboard-shortcuts">Keyboard Shortcuts</a>
@@ -92,6 +90,29 @@
         </div>
       </div>
 
+      <!-- What's New -->
+      <div class="docs-section" id="whats-new">
+        <h2>What's New in v1.1.0</h2>
+        <p>
+          Boozle 1.1.0 adds presenter view and slide transitions, then tightens the visual polish around progress and slide overview.
+        </p>
+
+        <h3>Added</h3>
+        <p>
+          Presenter view opens an optional speaker window with current slide, next-slide preview, wall clock, elapsed time, slide counter, and timer. Slide transitions now support <code>slide</code>, <code>fade</code>, and <code>none</code>.
+        </p>
+
+        <h3>Fixed</h3>
+        <p>
+          The progress bar no longer shows a stray 1 px line on some slide backgrounds. Presenter view forwards keyboard and mouse-wheel navigation to the main window. Slide overview borders now hug the actual slide edges.
+        </p>
+
+        <h3>Changed</h3>
+        <p>
+          Presenter view now uses framed current/next panels with larger timing readouts, and its progress indicator matches the segmented brand-rainbow overlay. Slide overview uses the same framed panel style with a darker scrim for better thumbnail contrast.
+        </p>
+      </div>
+
       <!-- Common Commands -->
       <div class="docs-section" id="common-commands">
         <h2>Common Commands</h2>
@@ -121,6 +142,16 @@
           <pre><code>boozle deck.pdf <span class="tok-flag">--monitor</span> 1</code></pre>
         </div>
 
+        <h3>Use presenter view on another monitor</h3>
+        <div class="code-block">
+          <pre><code>boozle deck.pdf <span class="tok-flag">--monitor</span> 1 <span class="tok-flag">--presenter-monitor</span> 0</code></pre>
+        </div>
+
+        <h3>Fade between slides</h3>
+        <div class="code-block">
+          <pre><code>boozle deck.pdf <span class="tok-flag">--transition</span> fade</code></pre>
+        </div>
+
         <h3>Play once and quit</h3>
         <div class="code-block">
           <pre><code>boozle deck.pdf <span class="tok-flag">--auto</span> 30s <span class="tok-flag">--autoquit</span></code></pre>
@@ -133,7 +164,7 @@
 
         <h3>Use a sidecar config</h3>
         <div class="code-block">
-          <pre><code>boozle deck.pdf <span class="tok-flag">--config</span> deck.toml</code></pre>
+          <pre><code>boozle deck.pdf <span class="tok-flag">--config</span> deck.boozle.toml</code></pre>
         </div>
       </div>
 
@@ -148,17 +179,17 @@
             </thead>
             <tbody>
               <tr>
-                <td>--auto</td>
+                <td>-a, --auto</td>
                 <td><code>&lt;duration&gt;</code></td>
                 <td>Auto-advance interval. Accepts Go duration strings: <code>30s</code>, <code>2m</code>, <code>500ms</code>.</td>
               </tr>
               <tr>
-                <td>--loop</td>
+                <td>-l, --loop</td>
                 <td></td>
                 <td>Loop back to the first slide after the last page.</td>
               </tr>
               <tr>
-                <td>--start</td>
+                <td>-s, --start</td>
                 <td><code>&lt;N&gt;</code></td>
                 <td>Start at page N (1-indexed).</td>
               </tr>
@@ -168,19 +199,29 @@
                 <td>Restrict playback to a page range. Supports comma-separated ranges: <code>1-5,8,10-12</code>.</td>
               </tr>
               <tr>
-                <td>--monitor</td>
+                <td>-m, --monitor</td>
                 <td><code>&lt;N&gt;</code></td>
-                <td>Open on display N. Display 0 is the primary screen.</td>
+                <td>Open the audience presentation on display N. Display 0 is the primary screen.</td>
+              </tr>
+              <tr>
+                <td>-P, --presenter-monitor</td>
+                <td><code>&lt;N&gt;</code></td>
+                <td>Open presenter view on display N. Must be different from <code>--monitor</code>.</td>
               </tr>
               <tr>
                 <td>--bg</td>
                 <td><code>&lt;hex&gt;</code></td>
-                <td>Background color behind slides (default: <code>#000000</code>).</td>
+                <td>Background color behind slides. Accepts <code>#RGB</code>, <code>#RRGGBB</code>, or <code>#RRGGBBAA</code> (default: <code>#000000</code>).</td>
               </tr>
               <tr>
                 <td>--progress</td>
                 <td></td>
-                <td>Show a page-position and countdown HUD overlay.</td>
+                <td>Show segmented page-position progress and countdown overlay.</td>
+              </tr>
+              <tr>
+                <td>--transition</td>
+                <td><code>&lt;style&gt;</code></td>
+                <td>Page transition: <code>slide</code>, <code>fade</code>, or <code>none</code>. Non-directional jumps always fade.</td>
               </tr>
               <tr>
                 <td>--autoquit</td>
@@ -198,7 +239,12 @@
                 <td>Load a specific TOML config file (default: same directory as the PDF).</td>
               </tr>
               <tr>
-                <td>--version</td>
+                <td>-h, --help</td>
+                <td></td>
+                <td>Show help and exit.</td>
+              </tr>
+              <tr>
+                <td>-v, --version</td>
                 <td></td>
                 <td>Print the Boozle version and exit.</td>
               </tr>
@@ -211,6 +257,7 @@
       <div class="docs-section" id="keyboard-shortcuts">
         <h2>Keyboard Shortcuts</h2>
         <p>Controls available during a presentation:</p>
+        <p>When presenter view is enabled, the same navigation keys work when the presenter window has focus.</p>
         <div class="ref-table-wrap">
           <table class="ref-table">
             <thead>
@@ -219,14 +266,17 @@
             <tbody>
               <tr><td>→ / Page Down / Space</td><td>Next slide</td></tr>
               <tr><td>← / Page Up</td><td>Previous slide</td></tr>
+              <tr><td>mouse wheel down / up</td><td>Next or previous slide</td></tr>
+              <tr><td>Backspace</td><td>Previous slide, or delete a typed page digit</td></tr>
               <tr><td>Home</td><td>First slide</td></tr>
               <tr><td>End</td><td>Last slide</td></tr>
               <tr><td>0–9 + Enter</td><td>Jump to page number</td></tr>
+              <tr><td>l</td><td>Return to the previously viewed page</td></tr>
               <tr><td>p</td><td>Pause or resume auto-advance</td></tr>
               <tr><td>b</td><td>Blackout screen (toggle)</td></tr>
               <tr><td>w</td><td>Whiteout screen (toggle)</td></tr>
               <tr><td>f</td><td>Toggle fullscreen</td></tr>
-              <tr><td>Tab</td><td>Open slide overview grid</td></tr>
+              <tr><td>Tab</td><td>Open slide overview; use arrows or click to select, Enter to jump</td></tr>
               <tr><td>q / Esc</td><td>Quit</td></tr>
             </tbody>
           </table>
@@ -238,14 +288,14 @@
         <h2>Sidecar Config</h2>
         <p>
           Boozle automatically looks for a <code>.toml</code> file with the same base name as your PDF
-          in the same directory. Place <code>deck.toml</code> next to <code>deck.pdf</code> and it loads automatically.
+          in the same directory. Place <code>deck.boozle.toml</code> next to <code>deck.pdf</code> and it loads automatically.
           Use <code>--config</code> to specify a different path.
         </p>
-        <p>Presentation settings that travel with your PDF.</p>
+        <p>Presentation settings that travel with your PDF. Command-line flags always take precedence over sidecar values.</p>
 
         <div class="code-block">
           <div class="code-block__header">
-            <span>deck.toml</span>
+            <span>deck.boozle.toml</span>
             <button class="copy-btn" data-target="code-toml-full">Copy</button>
           </div>
           <pre id="code-toml-full"><code><span class="tok-comment"># Global defaults apply to all slides</span>
@@ -255,6 +305,8 @@
 <span class="tok-attr">pages</span>    = <span class="tok-str">"1-5,8,10-12"</span>  <span class="tok-comment"># optional page range</span>
 <span class="tok-attr">bg</span>       = <span class="tok-str">"#0a0a0a"</span>  <span class="tok-comment"># background color</span>
 <span class="tok-attr">autoquit</span> = <span class="tok-val">false</span>      <span class="tok-comment"># don't quit at end (looping)</span>
+<span class="tok-attr">transition</span> = <span class="tok-str">"fade"</span>    <span class="tok-comment"># slide, fade, or none</span>
+<span class="tok-comment"># presenter_monitor = 0       # optional speaker display</span>
 
 <span class="tok-comment"># Override timing for specific slides</span>
 <span class="tok-key">[[page]]</span>
@@ -279,6 +331,8 @@
               <tr><td>pages</td><td><code>string</code></td><td>Page range to present (e.g. <code>"1-5,8,10-12"</code>)</td></tr>
               <tr><td>bg</td><td><code>string</code></td><td>Background color hex (e.g. <code>"#000000"</code>)</td></tr>
               <tr><td>autoquit</td><td><code>bool</code></td><td>Quit after the last slide</td></tr>
+              <tr><td>transition</td><td><code>string</code></td><td>Transition style: <code>"slide"</code>, <code>"fade"</code>, or <code>"none"</code></td></tr>
+              <tr><td>presenter_monitor</td><td><code>int</code></td><td>Presenter view display index; must differ from the audience monitor</td></tr>
               <tr><td>[[page]].n</td><td><code>int</code></td><td>Page number to override (1-indexed)</td></tr>
               <tr><td>[[page]].auto</td><td><code>string</code></td><td>Duration override for that page</td></tr>
             </tbody>
@@ -309,8 +363,8 @@
 
         <h3>Linux — PATH setup</h3>
         <p>
-          The shell script installer places the binary in <code>~/.local/bin</code>. Make sure this is on
-          your <code>$PATH</code>:
+          The shell script installer verifies the archive against <code>checksums.txt</code>, installs to
+          <code>/usr/local/bin</code> when possible, and falls back to <code>~/.local/bin</code>. Make sure the fallback directory is on your <code>$PATH</code>:
         </p>
         <div class="code-block">
           <pre><code><span class="tok-comment"># Add to ~/.bashrc or ~/.zshrc</span>
@@ -336,8 +390,10 @@ export PATH="$HOME/.local/bin:$PATH"</code></pre>
         <a href="docs.html">Docs</a>
         <a href="use-cases.html">Use Cases</a>
         <a href="compare.html">Compare</a>
+        <a href="legal-notice.html">Legal Notice</a>
+        <a href="privacy.html">Privacy</a>
       </nav>
-      <p class="footer__copy">Apache-2.0 &middot; Built in Go &middot; Zero dependencies (including this website)</p>
+      <p class="footer__copy">Open Source &middot; Built with AI &middot; Zero dependencies</p>
     </div>
   </div>
 </footer>

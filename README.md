@@ -46,7 +46,7 @@ boozle-website/
 
 Pure static HTML, CSS, and vanilla JavaScript. No build step, no bundler, no framework, no dependencies. The site can be opened directly in a browser from the filesystem.
 
-- **Fonts** — Inter (Google Fonts, loaded via CDN)
+- **Fonts** — System font stack, with no third-party font requests
 - **Icons** — Inline SVG throughout
 - **Animations** — CSS `@keyframes` + IntersectionObserver for scroll fade-ins
 - **Interactive** — Tabs, FAQ accordion, copy-to-clipboard, animated countdown mockups
