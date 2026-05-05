@@ -80,6 +80,16 @@
             "@type": "Question",
             "name": "Is Boozle good for Ignite talks?",
             "acceptedAnswer": { "@type": "Answer", "text": "Yes. Boozle is ideal for Ignite talks — set --auto 15s on a 20-slide PDF and it advances every 15 seconds for a perfect 5-minute presentation. Add --autoquit so it exits cleanly after the last slide." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can Boozle import PowerPoint speaker notes?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Run boozle notes import deck.pptx to extract speaker notes once into a deck.boozle.toml sidecar. From then on you only need the PDF plus the sidecar — the PowerPoint file is no longer required at presentation time." }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I find the right monitor index?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Run boozle --list-monitors (or -M) to print the index, name, and DPI scale of every connected display, then pass the index you want to --monitor or --presenter-monitor." }
           }
         ]
       }
@@ -303,7 +313,24 @@
           <rect x="3" y="4" width="8" height="6" rx="1"/><rect x="13" y="4" width="8" height="6" rx="1"/><rect x="3" y="14" width="18" height="6" rx="1"/>
         </svg>
         <h3 class="feature-card__title">Presenter View</h3>
-        <p class="feature-card__body">Open a speaker window with current slide, next preview, clock, elapsed time, slide counter, and timer via <code>--presenter-monitor</code>.</p>
+        <p class="feature-card__body">Open a speaker window with current slide, next preview, per-slide notes, clock, elapsed time, slide counter, and timer via <code>--presenter-monitor</code>.</p>
+      </article>
+
+      <article class="feature-card anim-fade-up">
+        <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="14" y2="17"/>
+        </svg>
+        <h3 class="feature-card__title">PowerPoint Notes Import</h3>
+        <p class="feature-card__body">Run <code>boozle notes import deck.pptx</code> once to extract speaker notes into a TOML sidecar. After that, present with only the PDF — the <code>.pptx</code> isn't needed.</p>
+      </article>
+
+      <article class="feature-card anim-fade-up">
+        <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="12" rx="2"/><line x1="8" y1="20" x2="16" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/>
+          <line x1="6" y1="8" x2="14" y2="8"/><line x1="6" y1="11" x2="11" y2="11"/>
+        </svg>
+        <h3 class="feature-card__title">List Monitors</h3>
+        <p class="feature-card__body">Run <code>boozle --list-monitors</code> (or <code>-M</code>) to print the index, name, and DPI scale of every connected display before you pick one with <code>--monitor</code>.</p>
       </article>
 
       <article class="feature-card anim-fade-up">
@@ -522,7 +549,13 @@ boozle slides.pdf <span class="tok-flag">--auto</span> 1m <span class="tok-flag"
 boozle slides.pdf <span class="tok-flag">--auto</span> 20s <span class="tok-flag">--pages</span> 3-9
 
 <span class="tok-comment"># Cross-fade between slides</span>
-boozle slides.pdf <span class="tok-flag">--transition</span> fade</code></pre>
+boozle slides.pdf <span class="tok-flag">--transition</span> fade
+
+<span class="tok-comment"># List connected displays to find the right index</span>
+boozle <span class="tok-flag">--list-monitors</span>
+
+<span class="tok-comment"># Extract PowerPoint speaker notes once into a sidecar</span>
+boozle notes import deck.pptx <span class="tok-flag">--out</span> deck.boozle.toml</code></pre>
         </div>
 
         <div class="code-block">
@@ -544,7 +577,12 @@ boozle slides.pdf <span class="tok-flag">--transition</span> fade</code></pre>
 <span class="tok-comment"># Quick slide — 10 seconds</span>
 <span class="tok-key">[[page]]</span>
 <span class="tok-attr">n</span>    = <span class="tok-num">7</span>
-<span class="tok-attr">auto</span> = <span class="tok-str">"10s"</span></code></pre>
+<span class="tok-attr">auto</span> = <span class="tok-str">"10s"</span>
+
+<span class="tok-comment"># Speaker notes — shown in presenter view</span>
+<span class="tok-key">[[page]]</span>
+<span class="tok-attr">n</span>     = <span class="tok-num">5</span>
+<span class="tok-attr">notes</span> = <span class="tok-str">"Mention the rollout date. Pause for questions."</span></code></pre>
         </div>
       </div>
 
@@ -742,6 +780,26 @@ boozle slides.pdf <span class="tok-flag">--transition</span> fade</code></pre>
         </button>
         <div class="faq-answer">
           Boozle is ideal for Ignite talks. Set <code>--auto 15s</code> on a 20-slide PDF and it advances automatically every 15 seconds, running the full 5 minutes hands-free. Add <code>--autoquit</code> so it exits cleanly when the last slide is done.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can Boozle import PowerPoint speaker notes?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          Yes. Run <code>boozle notes import deck.pptx</code> once to extract speaker notes into a <code>deck.boozle.toml</code> sidecar. From then on you only need the PDF plus the sidecar at presentation time — the <code>.pptx</code> file isn't needed. Old binary <code>.ppt</code> files should be converted to <code>.pptx</code> first.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          How do I find the right monitor index?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          Run <code>boozle --list-monitors</code> (or <code>-M</code>) to print the index, name, and DPI scale of every connected display. Then pass the index you want to <code>--monitor</code> or <code>--presenter-monitor</code>.
         </div>
       </div>
 

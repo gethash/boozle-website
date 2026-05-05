@@ -100,8 +100,8 @@
 <div class="page-hero">
   <div class="container">
     <div class="section-eyebrow">Use Cases</div>
-    <h1 class="page-hero__title">PDF slideshows for booths, kiosks,<br>Ignite talks, and hands-free presentations.</h1>
-    <p class="page-hero__lead">Wherever a PDF needs to run itself — unattended, timed, and fullscreen — Boozle fits the job. Perfect for booth loops, lobby screens, kiosk displays, and Ignite talks.</p>
+    <h1 class="page-hero__title">PDF slideshows for booths, kiosks,<br>conference talks, and hands-free presentations.</h1>
+    <p class="page-hero__lead">Wherever a PDF needs to run itself — unattended, timed, and fullscreen — Boozle fits the job. Perfect for booth loops, lobby screens, kiosk displays, Ignite talks, and conference talks where you still want your PowerPoint speaker notes on a second screen.</p>
   </div>
 </div>
 
@@ -363,6 +363,82 @@
       </div>
     </div>
 
+    <!-- Conference Talk with PowerPoint Notes -->
+    <div class="use-case-full">
+      <div class="hud-mockup use-case-full__visual-first" aria-hidden="true">
+        <div class="hud-mockup__screen">
+          <div class="slide-visual" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; padding: 1rem;">
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <div class="slide-visual__kicker">Current slide</div>
+              <div class="fake-slide" style="aspect-ratio: 16/10;">
+                <div class="fake-slide__title"></div>
+                <div class="fake-slide__bar fake-slide__bar--long"></div>
+                <div class="fake-slide__bar fake-slide__bar--med"></div>
+                <div class="fake-slide__bar fake-slide__bar--short"></div>
+              </div>
+              <div class="slide-visual__kicker" style="margin-top: 0.25rem;">Next slide</div>
+              <div class="fake-slide" style="aspect-ratio: 16/10; opacity: 0.55;">
+                <div class="fake-slide__title"></div>
+                <div class="fake-slide__bar fake-slide__bar--med"></div>
+                <div class="fake-slide__bar fake-slide__bar--short"></div>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <div style="display: flex; gap: 0.5rem; font-size: 0.7rem; color: var(--color-text-muted); justify-content: space-between;">
+                <span>14:23:08</span><span>+04:12</span><span>06 / 18</span>
+              </div>
+              <div style="background: rgba(255,255,255,0.04); border: 1px solid var(--color-border); border-radius: 0.5rem; padding: 0.75rem; flex: 1; display: flex; flex-direction: column; gap: 0.4rem;">
+                <div class="slide-visual__kicker">Speaker notes</div>
+                <div class="fake-slide__bar fake-slide__bar--long"></div>
+                <div class="fake-slide__bar fake-slide__bar--long"></div>
+                <div class="fake-slide__bar fake-slide__bar--med"></div>
+                <div class="fake-slide__bar fake-slide__bar--short"></div>
+                <div class="fake-slide__bar fake-slide__bar--med"></div>
+              </div>
+              <div class="slide-visual__pill">presenter view &middot; notes from .pptx</div>
+            </div>
+          </div>
+          <div class="hud-overlay">
+            <div class="hud-overlay__page">06 / 18</div>
+            <div class="hud-overlay__time">02:34</div>
+            <div class="hud-overlay__bar-track">
+              <div class="hud-overlay__bar-fill" style="width: 33%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="hud-mockup__label">boozle &mdash; presenter view &middot; speaker notes</div>
+      </div>
+      <div>
+        <div class="use-case-full__label">Conference Talks</div>
+        <h2 class="use-case-full__title">Keep your PowerPoint speaker notes — present from PDF</h2>
+        <p class="use-case-full__body">
+          You wrote your talk in PowerPoint with detailed speaker notes, then exported a PDF for portability.
+          Boozle keeps both. Run <code>boozle notes import deck.pptx</code> once to extract the notes into a
+          <code>.boozle.toml</code> sidecar — then present from the PDF with a presenter view that shows the
+          current slide, next preview, wall clock, elapsed time, and your original PowerPoint notes per slide.
+        </p>
+        <div class="use-case-full__tips">
+          <div class="use-case-full__tip">Use <code>boozle --list-monitors</code> to find the right indexes for the audience and presenter displays.</div>
+          <div class="use-case-full__tip">Old binary <code>.ppt</code> files should be saved as <code>.pptx</code> first.</div>
+          <div class="use-case-full__tip">After import, the <code>.pptx</code> isn't needed anymore — only the PDF and the sidecar travel with you.</div>
+        </div>
+        <div class="code-block">
+          <div class="code-block__header">
+            <span>Terminal — one-time prep, then present</span>
+            <button class="copy-btn" data-target="code-notes">Copy</button>
+          </div>
+          <pre id="code-notes"><code><span class="tok-comment"># 1. Extract speaker notes once</span>
+boozle notes import deck.pptx <span class="tok-flag">--out</span> deck.boozle.toml
+
+<span class="tok-comment"># 2. Find connected displays</span>
+boozle <span class="tok-flag">--list-monitors</span>
+
+<span class="tok-comment"># 3. Present — audience on monitor 1, notes on monitor 0</span>
+boozle deck.pdf <span class="tok-flag">--monitor</span> 1 <span class="tok-flag">--presenter-monitor</span> 0</code></pre>
+        </div>
+      </div>
+    </div>
+
     <!-- Product Demo -->
     <div class="use-case-full">
       <div>
@@ -374,8 +450,8 @@
           the operator wants a speaker display with timing and next-slide context.
         </p>
         <div class="use-case-full__tips">
-          <div class="use-case-full__tip">Use <code>--monitor 1</code> to target the dedicated demo display.</div>
-          <div class="use-case-full__tip">Add <code>--presenter-monitor 0</code> when the presenter needs a private control view.</div>
+          <div class="use-case-full__tip">Use <code>boozle --list-monitors</code> to discover display indexes before you wire up the booth.</div>
+          <div class="use-case-full__tip">Add <code>--presenter-monitor 0</code> when the operator wants a private control view with talking-point notes.</div>
           <div class="use-case-full__tip">Set a short interval (15–25s) so the loop stays dynamic during conversations.</div>
         </div>
         <div class="code-block">
