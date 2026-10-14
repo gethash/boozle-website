@@ -10,7 +10,7 @@ Live at **[boozle.io](https://boozle.io)**
 
 Boozle turns any PDF into a fullscreen, auto-advancing slideshow. It is built for trade show booths, kiosk displays, lobby screens, classrooms, and hands-free presentations. No presentation suite. No runtime. No installer. Just a single static binary.
 
-Key features: auto-advance timer, loop mode, per-slide timing via TOML sidecar config, progress overlay, slide overview grid, HiDPI rendering, multi-monitor support, and cross-platform binaries for macOS, Linux, and Windows.
+Key features: auto-advance timer, loop mode, per-slide timing via TOML sidecar config, progress overlay, slide overview grid, HiDPI rendering, multi-monitor support with monitor selection by index or name, presenter view with speaker notes (from TOML, `.pdfpc`, or imported PowerPoint notes), and cross-platform binaries for macOS (Intel and Apple Silicon), Linux (x86_64 and ARM64), and Windows.
 
 ---
 
@@ -19,7 +19,7 @@ Key features: auto-advance timer, loop mode, per-slide timing via TOML sidecar c
 ```
 boozle-website/
 ├── index.html          # Home — hero, features, install, use cases preview, FAQ
-├── docs.html           # Full CLI reference, keyboard shortcuts, sidecar config guide
+├── docs.html           # Full CLI reference, keyboard shortcuts, TOML/pdfpc sidecar guide, performance notes
 ├── use-cases.html      # Detailed use case walkthroughs
 ├── compare.html        # Feature comparison vs PowerPoint, Acrobat, browser viewers
 ├── CNAME               # Custom domain (boozle.io)

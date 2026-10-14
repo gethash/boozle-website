@@ -215,7 +215,7 @@
         </p>
         <div class="use-case-full__tips">
           <div class="use-case-full__tip">Use <code>--pages</code> to show only the relevant section of a larger PDF.</div>
-          <div class="use-case-full__tip">Combine <code>--no-fullscreen</code> with a window manager for fully locked-down kiosk mode.</div>
+          <div class="use-case-full__tip">On Linux, Boozle's window has the X11 class <code>boozle</code>, so window-manager rules can pin it to the right screen. ARM64 builds run on small single-board kiosk players.</div>
           <div class="use-case-full__tip">Use <code>--bg</code> to match the display surround color.</div>
         </div>
         <div class="code-block">
@@ -418,7 +418,9 @@
           current slide, next preview, wall clock, elapsed time, and your original PowerPoint notes per slide.
         </p>
         <div class="use-case-full__tips">
-          <div class="use-case-full__tip">Use <code>boozle --list-monitors</code> to find the right indexes for the audience and presenter displays.</div>
+          <div class="use-case-full__tip">Use <code>boozle --list-monitors</code> to find your displays, then address them by index or by name such as <code>HDMI-1</code>.</div>
+          <div class="use-case-full__tip">Press <kbd>Tab</kbd> to open the slide overview on your presenter screen. The audience keeps seeing the current slide until you jump.</div>
+          <div class="use-case-full__tip">Coming from PDF Presenter Console? Your <code>.pdfpc</code> notes and page order work as-is, with no import step.</div>
           <div class="use-case-full__tip">Old binary <code>.ppt</code> files should be saved as <code>.pptx</code> first.</div>
           <div class="use-case-full__tip">After import, the <code>.pptx</code> isn't needed anymore — only the PDF and the sidecar travel with you.</div>
         </div>
@@ -433,8 +435,8 @@ boozle notes import deck.pptx <span class="tok-flag">--out</span> deck.boozle.to
 <span class="tok-comment"># 2. Find connected displays</span>
 boozle <span class="tok-flag">--list-monitors</span>
 
-<span class="tok-comment"># 3. Present — audience on monitor 1, notes on monitor 0</span>
-boozle deck.pdf <span class="tok-flag">--monitor</span> 1 <span class="tok-flag">--presenter-monitor</span> 0</code></pre>
+<span class="tok-comment"># 3. Present — audience on the projector, notes on your laptop</span>
+boozle deck.pdf <span class="tok-flag">--monitor</span> HDMI-1 <span class="tok-flag">--presenter-monitor</span> 0</code></pre>
         </div>
       </div>
     </div>
@@ -450,7 +452,7 @@ boozle deck.pdf <span class="tok-flag">--monitor</span> 1 <span class="tok-flag"
           the operator wants a speaker display with timing and next-slide context.
         </p>
         <div class="use-case-full__tips">
-          <div class="use-case-full__tip">Use <code>boozle --list-monitors</code> to discover display indexes before you wire up the booth.</div>
+          <div class="use-case-full__tip">Use <code>boozle --list-monitors</code> before you wire up the booth, and put the display name in the sidecar. Names stay stable across reboots on macOS and Linux.</div>
           <div class="use-case-full__tip">Add <code>--presenter-monitor 0</code> when the operator wants a private control view with talking-point notes.</div>
           <div class="use-case-full__tip">Set a short interval (15–25s) so the loop stays dynamic during conversations.</div>
         </div>

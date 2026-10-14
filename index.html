@@ -64,7 +64,7 @@
           {
             "@type": "Question",
             "name": "Does Boozle work on macOS, Linux, and Windows?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Boozle provides native binaries for macOS (Intel and Apple Silicon), Linux x86_64, and Windows." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Boozle provides native binaries for macOS (Intel and Apple Silicon), Linux (x86_64 and ARM64), and Windows." }
           },
           {
             "@type": "Question",
@@ -74,7 +74,7 @@
           {
             "@type": "Question",
             "name": "Can I choose which monitor to use?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the --monitor flag followed by the display index (e.g. --monitor 1) to open the presentation on a specific connected display." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the --monitor flag followed by the display index or name (e.g. --monitor 1 or --monitor HDMI-1) to open the presentation on a specific connected display." }
           },
           {
             "@type": "Question",
@@ -89,7 +89,12 @@
           {
             "@type": "Question",
             "name": "How do I find the right monitor index?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Run boozle --list-monitors (or -M) to print the index, name, and DPI scale of every connected display, then pass the index you want to --monitor or --presenter-monitor." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Run boozle --list-monitors (or -M) to print the index, name, size, and scale of every connected display, then pass the index or name you want to --monitor or --presenter-monitor. Names stay stable across reboots on macOS and Linux." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I reuse my pdfpc (PDF Presenter Console) files?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Boozle loads deck.pdfpc next to deck.pdf automatically, or any .pdfpc file passed with --config. It uses the page order, skips hidden slides, and shows the notes in presenter view." }
           }
         ]
       }
@@ -279,7 +284,7 @@
           <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
         </svg>
         <h3 class="feature-card__title">Slide Overview</h3>
-        <p class="feature-card__body">Press <kbd>Tab</kbd> to reveal a thumbnail grid of all slides. Jump to any page instantly without breaking the loop.</p>
+        <p class="feature-card__body">Press <kbd>Tab</kbd> to reveal a thumbnail grid of all slides and jump to any page. With presenter view on, the grid opens on your screen only, so the audience never sees it.</p>
       </article>
 
       <article class="feature-card anim-fade-up">
@@ -296,7 +301,7 @@
           <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
         </svg>
         <h3 class="feature-card__title">Cross-Platform</h3>
-        <p class="feature-card__body">Native binaries for macOS (Intel &amp; Apple Silicon), Linux x86_64, and Windows. One tool for every screen.</p>
+        <p class="feature-card__body">Native binaries for macOS (Intel &amp; Apple Silicon), Linux (x86_64 &amp; ARM64), and Windows. One tool for every screen.</p>
       </article>
 
       <article class="feature-card anim-fade-up">
@@ -305,7 +310,7 @@
           <line x1="5" y1="21" x2="19" y2="21"/>
         </svg>
         <h3 class="feature-card__title">Multi-Monitor</h3>
-        <p class="feature-card__body">Choose the audience display with <code>--monitor</code>, or add a separate speaker display with <code>--presenter-monitor</code>.</p>
+        <p class="feature-card__body">Choose the audience display with <code>--monitor</code>, or add a separate speaker display with <code>--presenter-monitor</code>, by index or by name like <code>HDMI-1</code>.</p>
       </article>
 
       <article class="feature-card anim-fade-up">
@@ -313,7 +318,7 @@
           <rect x="3" y="4" width="8" height="6" rx="1"/><rect x="13" y="4" width="8" height="6" rx="1"/><rect x="3" y="14" width="18" height="6" rx="1"/>
         </svg>
         <h3 class="feature-card__title">Presenter View</h3>
-        <p class="feature-card__body">Open a speaker window with current slide, next preview, per-slide notes, clock, elapsed time, slide counter, and timer via <code>--presenter-monitor</code>.</p>
+        <p class="feature-card__body">Open a speaker window with current slide, next preview, per-slide notes, clock, elapsed time, slide counter, and timer via <code>--presenter-monitor</code>. Notes come from TOML, <code>.pdfpc</code>, or PowerPoint.</p>
       </article>
 
       <article class="feature-card anim-fade-up">
@@ -330,7 +335,7 @@
           <line x1="6" y1="8" x2="14" y2="8"/><line x1="6" y1="11" x2="11" y2="11"/>
         </svg>
         <h3 class="feature-card__title">List Monitors</h3>
-        <p class="feature-card__body">Run <code>boozle --list-monitors</code> (or <code>-M</code>) to print the index, name, and DPI scale of every connected display before you pick one with <code>--monitor</code>.</p>
+        <p class="feature-card__body">Run <code>boozle --list-monitors</code> (or <code>-M</code>) to print the index, name, size, and scale of every connected display, then pass the index or name to <code>--monitor</code>.</p>
       </article>
 
       <article class="feature-card anim-fade-up">
@@ -347,6 +352,22 @@
         </svg>
         <h3 class="feature-card__title">Single Binary</h3>
         <p class="feature-card__body">Download, run, present. No installer, no runtime, no package manager. Copy the binary and it just works.</p>
+      </article>
+
+      <article class="feature-card anim-fade-up">
+        <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 15 11 17 15 13"/>
+        </svg>
+        <h3 class="feature-card__title">pdfpc Compatible</h3>
+        <p class="feature-card__body">Already use PDF Presenter Console? Boozle reads <code>.pdfpc</code> files directly: page order, hidden slides, and speaker notes carry over as-is.</p>
+      </article>
+
+      <article class="feature-card anim-fade-up">
+        <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        <h3 class="feature-card__title">Fast &amp; Lean</h3>
+        <p class="feature-card__body">Near-instant startup, renders off the UI thread, and memory bounded by a small GPU cache, not by deck length. Big decks stay smooth.</p>
       </article>
 
     </div>
@@ -392,7 +413,7 @@ brew install boozle</code></pre>
         </div>
         <pre id="code-shell"><code>curl -fsSL https://github.com/gethash/boozle/releases/latest/download/install.sh | sh</code></pre>
       </div>
-      <p class="install-note">Downloads the latest release for your OS and architecture, verifies SHA-256 against <code>checksums.txt</code>, installs to <code>/usr/local/bin</code>, and falls back to <code>~/.local/bin</code>.</p>
+      <p class="install-note">Downloads the latest release for your OS and architecture, verifies SHA-256 against <code>checksums.txt</code>, installs to <code>/usr/local/bin</code>, and falls back to <code>~/.local/bin</code>. On macOS it also clears the quarantine flag, so Gatekeeper won't block the first launch.</p>
     </div>
 
     <!-- Windows -->
@@ -416,17 +437,17 @@ brew install boozle</code></pre>
             <li><strong>macOS Apple Silicon</strong> — <code>boozle_vX.Y.Z_darwin-arm64.tar.gz</code></li>
             <li><strong>macOS Intel</strong> — <code>boozle_vX.Y.Z_darwin-amd64.tar.gz</code></li>
             <li><strong>Linux x86_64</strong> — <code>boozle_vX.Y.Z_linux-amd64.tar.gz</code></li>
-            <li><strong>Windows</strong> — <code>boozle_vX.Y.Z_windows-amd64.zip</code></li>
+            <li><strong>Linux ARM64</strong> — <code>boozle_vX.Y.Z_linux-arm64.tar.gz</code></li>
+            <li><strong>Windows x86_64</strong> — <code>boozle_vX.Y.Z_windows-amd64.zip</code></li>
           </ul>
         </li>
         <li>Verify the archive with the release's <code>checksums.txt</code>.</li>
-        <li>Make it executable and move it onto your PATH (macOS / Linux):
+        <li>Extract it and move the binary onto your PATH (macOS / Linux):
           <div class="code-block" style="margin-top: 0.5rem;">
             <pre><code>tar -xzf boozle_vX.Y.Z_darwin-arm64.tar.gz
-chmod +x boozle
-mv boozle /usr/local/bin/boozle</code></pre>
+sudo mv boozle_vX.Y.Z_darwin-arm64/boozle /usr/local/bin/boozle</code></pre>
           </div>
-          <p class="install-note" style="margin-top: 0.5rem;">On macOS, if Gatekeeper blocks the first launch, right-click the binary → Open, then confirm. Subsequent launches work normally.</p>
+          <p class="install-note" style="margin-top: 0.5rem;">On macOS, a browser download may be blocked by Gatekeeper on first launch. Right-click the binary → Open, then confirm, or run <code>xattr -d com.apple.quarantine</code> on it once. See <a href="docs.html#platform-notes">Platform Notes</a>.</p>
         </li>
         <li>Verify: <code>boozle --version</code></li>
       </ol>
@@ -551,8 +572,9 @@ boozle slides.pdf <span class="tok-flag">--auto</span> 20s <span class="tok-flag
 <span class="tok-comment"># Cross-fade between slides</span>
 boozle slides.pdf <span class="tok-flag">--transition</span> fade
 
-<span class="tok-comment"># List connected displays to find the right index</span>
+<span class="tok-comment"># List connected displays, then pick one by index or name</span>
 boozle <span class="tok-flag">--list-monitors</span>
+boozle slides.pdf <span class="tok-flag">--monitor</span> HDMI-1 <span class="tok-flag">--presenter-monitor</span> 0
 
 <span class="tok-comment"># Extract PowerPoint speaker notes once into a sidecar</span>
 boozle notes import deck.pptx <span class="tok-flag">--out</span> deck.boozle.toml</code></pre>
@@ -623,7 +645,7 @@ boozle notes import deck.pptx <span class="tok-flag">--out</span> deck.boozle.to
         <div class="keybind"><kbd>f</kbd> <span>Toggle fullscreen</span></div>
         <div class="keybind"><kbd>b</kbd> <span>Blackout screen</span></div>
         <div class="keybind"><kbd>w</kbd> <span>Whiteout screen</span></div>
-        <div class="keybind"><kbd>0–9</kbd> + <kbd>Enter</kbd> <span>Jump to page</span></div>
+        <div class="keybind"><kbd>0–9</kbd> + <kbd>Enter</kbd> <span>Jump to page (numpad too)</span></div>
         <div class="keybind"><kbd>Home</kbd> / <kbd>End</kbd> <span>First / last slide</span></div>
         <div class="keybind"><kbd>q</kbd> / <kbd>Esc</kbd> <span>Quit</span></div>
       </div>
@@ -677,7 +699,7 @@ boozle notes import deck.pptx <span class="tok-flag">--out</span> deck.boozle.to
           </tr>
           <tr>
             <td>Monitor selection</td>
-            <td class="col-boozle check">✓ <code>--monitor</code></td>
+            <td class="col-boozle check">✓ <code>--monitor &lt;N|name&gt;</code></td>
             <td class="col-other partial">Presenter mode only</td>
             <td class="col-other cross">No</td>
           </tr>
@@ -749,7 +771,7 @@ boozle notes import deck.pptx <span class="tok-flag">--out</span> deck.boozle.to
           <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-answer">
-          Yes. Boozle provides native binaries for macOS (Intel and Apple Silicon), Linux x86_64, and Windows. Install via Homebrew, shell script, PowerShell, or manual download.
+          Yes. Boozle provides native binaries for macOS (Intel and Apple Silicon), Linux (x86_64 and ARM64), and Windows. Install via Homebrew, shell script, PowerShell, or manual download.
         </div>
       </div>
 
@@ -769,7 +791,7 @@ boozle notes import deck.pptx <span class="tok-flag">--out</span> deck.boozle.to
           <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-answer">
-          Yes. Use <code>--monitor 1</code> (or any display index) to open the presentation on a specific connected display. Display 0 is the primary screen.
+          Yes. Use <code>--monitor 1</code> (any display index) or <code>--monitor HDMI-1</code> (a display name, or any unique part of it) to open the presentation on a specific connected display. Display 0 is the primary screen.
         </div>
       </div>
 
@@ -799,7 +821,17 @@ boozle notes import deck.pptx <span class="tok-flag">--out</span> deck.boozle.to
           <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-answer">
-          Run <code>boozle --list-monitors</code> (or <code>-M</code>) to print the index, name, and DPI scale of every connected display. Then pass the index you want to <code>--monitor</code> or <code>--presenter-monitor</code>.
+          Run <code>boozle --list-monitors</code> (or <code>-M</code>) to print the index, name, size, and scale of every connected display. Then pass the index or name you want to <code>--monitor</code> or <code>--presenter-monitor</code>. Names stay stable across reboots on macOS and Linux.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          Can I reuse my pdfpc (PDF Presenter Console) files?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer">
+          Yes. Boozle loads <code>deck.pdfpc</code> next to <code>deck.pdf</code> automatically, or any <code>.pdfpc</code> file passed with <code>--config</code>. It uses the page order, skips hidden slides, and shows the notes in presenter view. See <a href="docs.html#pdfpc">pdfpc Sidecars</a>.
         </div>
       </div>
 
