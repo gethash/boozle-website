@@ -18,26 +18,29 @@ Key features: auto-advance timer, loop mode, per-slide timing via TOML sidecar c
 
 ```
 boozle-website/
-├── index.html          # Home — hero, features, install, use cases preview, FAQ
-├── docs.html           # Full CLI reference, keyboard shortcuts, TOML/pdfpc sidecar guide, performance notes
-├── use-cases.html      # Detailed use case walkthroughs
-├── compare.html        # Feature comparison vs PowerPoint, Acrobat, browser viewers
+├── index.html          # Home: hero with running deck, features, install, use cases, quick start, compare, FAQ
+├── docs.html           # CLI reference, keyboard shortcuts, TOML/pdfpc sidecars, performance, platform notes
+├── use-cases.html      # Seven use-case walkthroughs with display mockups
+├── compare.html        # Feature comparison vs PowerPoint, Keynote, Acrobat, browser viewers
+├── legal-notice.html   # Impressum
+├── privacy.html        # Privacy policy
+├── 404.html            # "This page isn't in the deck." (served by GitHub Pages for unknown URLs)
 ├── CNAME               # Custom domain (boozle.io)
 ├── assets/
-│   ├── css/
-│   │   └── style.css   # Single shared stylesheet
-│   └── js/
-│       └── main.js     # Vanilla JS — tabs, copy buttons, FAQ accordion, animations
+│   ├── css/style.css   # Single stylesheet: fonts, tokens (dark + light), bz-* components, pg-* page layout
+│   ├── js/main.js      # Vanilla JS: theme toggle, mobile menu, install tabs, copy, docs scroll-spy, reveals
+│   ├── fonts/          # Bricolage Grotesque, Geist, Geist Mono (variable woff2, OFL, self-hosted)
+│   └── og/boozle-og.png  # 1200×630 social preview image
 ├── logos/
-│   ├── logo.svg        # Primary wordmark (SVG)
-│   ├── logo.png        # Raster fallback
-│   ├── favicon.svg     # SVG favicon
-│   └── favicon.png     # PNG favicon fallback
+│   ├── logo.svg / logo.png          # Primary lockup for dark grounds
+│   ├── logo-light.svg               # Lockup for light grounds
+│   ├── logo-mono-white.svg / -black # One-colour versions
+│   ├── mark.svg / mark-light.svg    # The "b" mark alone
+│   ├── app-icon.svg, apple-touch-icon.png
+│   └── favicon.svg / favicon.png
 ├── styleguide/
-│   └── boozle_styleguide.png
-└── .github/
-    └── workflows/
-        └── deploy.yml  # GitHub Actions — auto-deploy to GitHub Pages on push to main
+│   └── boozle_styleguide.png        # One-page overview of the design system
+└── .github/workflows/deploy.yml     # GitHub Actions: deploy to GitHub Pages on push to main
 ```
 
 ---
@@ -46,10 +49,11 @@ boozle-website/
 
 Pure static HTML, CSS, and vanilla JavaScript. No build step, no bundler, no framework, no dependencies. The site can be opened directly in a browser from the filesystem.
 
-- **Fonts** — System font stack, with no third-party font requests
-- **Icons** — Inline SVG throughout
-- **Animations** — CSS `@keyframes` + IntersectionObserver for scroll fade-ins
-- **Interactive** — Tabs, FAQ accordion, copy-to-clipboard, animated countdown mockups
+- **Fonts**: Bricolage Grotesque (display), Geist (text), Geist Mono (code, timers). Self-hosted from `assets/fonts/`, with no third-party font requests.
+- **Themes**: dark by default. Light follows the OS setting, and the header toggle stores an explicit choice in `localStorage` (`boozle-theme`). A tiny inline script in each `<head>` applies it before first paint.
+- **Icons**: inline SVG, outline style, 1.75 stroke.
+- **Motion**: CSS transitions with custom curves. The hero deck auto-advances with CSS keyframes (transform/opacity only). Sections below the fold rise in once via IntersectionObserver. `prefers-reduced-motion` keeps fades and drops movement.
+- **Interactive**: install tabs (clip-path indicator, arrow-key navigation), copy-to-clipboard, FAQ (`<details>`), mobile menu, docs scroll-spy, theme toggle.
 
 ---
 
@@ -98,16 +102,23 @@ The `CNAME` file in the repo root is picked up automatically by GitHub Pages and
 
 ## Design system
 
-The full visual spec is in `styleguide/boozle_styleguide.png`. Key tokens are defined as CSS custom properties at the top of `assets/css/style.css`:
+The visual system lives in the **Boozle - Design System** artifact (tokens, components, motion rules, logo). The page designs live in the **Boozle - Website** artifact. `styleguide/boozle_styleguide.png` is a one-page overview.
 
-| Token | Value | Usage |
-|---|---|---|
-| `--color-bg` | `#0e0e10` | Page background |
-| `--color-surface` | `#18181c` | Cards, panels |
-| `--color-text` | `#f8fafc` | Primary text |
-| `--grad-1` – `--grad-8` | Rainbow spectrum | Gradient accents |
-| `--font-sans` | Inter | Body and UI |
-| `--font-mono` | Fira Code / Cascadia | Code blocks |
+The idea is that **the timer is the brand**. The eight-stop spectrum is used only for time and progress: progress segments, countdown rings and the logo bowl. Everything else is neutral.
+
+| Token | Dark | Light | Usage |
+|---|---|---|---|
+| `--ground` | `#0b0b12` | `#f7f7fb` | Page background |
+| `--surface` | `#12121b` | `#ffffff` | Code windows, tables, cards |
+| `--ink` | `#f4f4fa` | `#12121a` | Primary text, primary button fill |
+| `--ink-muted` | `#a9a9c0` | `#545469` | Ledes, card copy |
+| `--signal` | `#5ce1ff` | `#0a62b0` | Links, active docs item |
+| `--spectrum-*` | `#ff4d6d` → `#ff61d8` | same | Time and progress only |
+| `--font-display` | Bricolage Grotesque | | Headlines |
+| `--font-sans` | Geist | | Body and UI |
+| `--font-mono` | Geist Mono | | Commands, flags, timers |
+
+Class prefixes in `style.css`: `bz-` for design-system components and `pg-` for page layout.
 
 ---
 
