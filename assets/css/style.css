@@ -7,7 +7,7 @@
    ============================================================ */
 
 /* === Fonts (self-hosted, OFL) ============================== */
-@font-face { font-family: "Bricolage Grotesque"; src: url("../fonts/BricolageGrotesque-Variable.woff2") format("woff2"); font-weight: 200 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Mona Sans"; src: url("../fonts/MonaSans-Variable.woff2") format("woff2"); font-weight: 200 900; font-stretch: 75% 125%; font-style: normal; font-display: swap; }
 @font-face { font-family: "Geist"; src: url("../fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
 @font-face { font-family: "Geist Mono"; src: url("../fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
 
@@ -75,7 +75,7 @@
   --duration-pop: 200ms;
   --duration-sheet: 280ms;
   --duration-slide: 640ms;
-  --font-display: "Bricolage Grotesque", "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Mona Sans", "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
@@ -195,11 +195,11 @@ button { font: inherit; }
 /* ---------- type helpers ---------- */
 .bz-eyebrow { font: 500 12px/16px var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); display: inline-flex; align-items: center; gap: 10px; }
 .bz-eyebrow::before { content: ""; width: 18px; height: 2px; border-radius: 2px; background: var(--spectrum); }
-.bz-display-xl { font-family: var(--font-display); font-size: clamp(48px, 7vw, 88px); line-height: 0.94; font-weight: 800; letter-spacing: -0.035em; font-variation-settings: 'opsz' 96, 'wdth' 92; text-wrap: balance; margin: 0; }
-.bz-display-l { font-family: var(--font-display); font-size: clamp(40px, 5vw, 64px); line-height: 1; font-weight: 800; letter-spacing: -0.03em; font-variation-settings: 'opsz' 96, 'wdth' 92; text-wrap: balance; margin: 0; }
-.bz-h1 { font-family: var(--font-display); font-size: clamp(32px, 4vw, 44px); line-height: 1.05; font-weight: 760; letter-spacing: -0.025em; font-variation-settings: 'opsz' 72, 'wdth' 95; text-wrap: balance; margin: 0; }
-.bz-h2 { font-family: var(--font-display); font-size: clamp(26px, 3vw, 30px); line-height: 1.15; font-weight: 720; letter-spacing: -0.015em; font-variation-settings: 'opsz' 48; text-wrap: balance; margin: 0; }
-.bz-h3 { font-family: var(--font-display); font-size: 21px; line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; font-variation-settings: 'opsz' 24; margin: 0; }
+.bz-display-xl { font-family: var(--font-display); font-size: clamp(48px, 7vw, 88px); line-height: 1; font-weight: 720; letter-spacing: -0.025em; font-variation-settings: 'wdth' 108; text-wrap: balance; margin: 0; }
+.bz-display-l { font-family: var(--font-display); font-size: clamp(40px, 5vw, 64px); line-height: 1.04; font-weight: 720; letter-spacing: -0.022em; font-variation-settings: 'wdth' 108; text-wrap: balance; margin: 0; }
+.bz-h1 { font-family: var(--font-display); font-size: clamp(32px, 4vw, 44px); line-height: 1.08; font-weight: 700; letter-spacing: -0.018em; font-variation-settings: 'wdth' 106; text-wrap: balance; margin: 0; }
+.bz-h2 { font-family: var(--font-display); font-size: clamp(26px, 3vw, 30px); line-height: 1.18; font-weight: 680; letter-spacing: -0.01em; font-variation-settings: 'wdth' 104; text-wrap: balance; margin: 0; }
+.bz-h3 { font-family: var(--font-display); font-size: 21px; line-height: 1.28; font-weight: 650; letter-spacing: -0.005em; font-variation-settings: 'wdth' 104; margin: 0; }
 .bz-lede { font-size: 19px; line-height: 30px; color: var(--ink-muted); max-width: 60ch; margin: 0; text-wrap: pretty; }
 .bz-muted { color: var(--ink-muted); }
 .bz-caption { font-size: 13px; line-height: 18px; color: var(--ink-faint); }
@@ -434,7 +434,7 @@ button { font: inherit; }
 .bz-slide[data-state="prev"] { transform: translateX(-100%); }
 .bz-slide[data-state="now"] { transform: none; }
 .bz-slide__kicker { font: 500 clamp(9px, 1.1vw, 12px)/1.2 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.7; }
-.bz-slide__title { font-family: var(--font-display); font-weight: 800; font-size: clamp(20px, 4.2vw, 54px); line-height: 0.95; letter-spacing: -0.02em; font-variation-settings: 'opsz' 96, 'wdth' 96; margin-top: 10px; max-width: 14ch; }
+.bz-slide__title { font-family: var(--font-display); font-weight: 720; font-size: clamp(20px, 4.2vw, 54px); line-height: 1; letter-spacing: -0.02em; font-variation-settings: 'wdth' 108; margin-top: 10px; max-width: 14ch; }
 .bz-slide--a { background: radial-gradient(120% 90% at 85% 10%, #3b1d5e 0%, transparent 60%), radial-gradient(90% 80% at 0% 100%, #5a1630 0%, transparent 55%), #0d0b14; }
 .bz-slide--b { background: radial-gradient(110% 90% at 90% 90%, #0b4a52 0%, transparent 55%), radial-gradient(80% 70% at 10% 0%, #13305e 0%, transparent 60%), #08101a; }
 .bz-slide--c { background: radial-gradient(100% 100% at 100% 0%, #5e4a06 0%, transparent 55%), radial-gradient(90% 80% at 0% 100%, #5e2a06 0%, transparent 55%), #120d07; }
@@ -506,6 +506,18 @@ button { font: inherit; }
 }
 @keyframes bz-fade { from { opacity: 0; } }
 
+/* Logo fill — home only, once per session (Motion: "Logo fill").
+   The five lit segments switch on left to right, opacity only; the track
+   segments are there from the start. Without [data-logo-fill] nothing animates. */
+@keyframes bz-seg-on { from { opacity: 0; } }
+html[data-logo-fill] .bz-logo--fill rect:nth-of-type(-n+5) { animation: bz-seg-on var(--duration-pop) var(--ease-out) both; }
+html[data-logo-fill] .bz-logo--fill rect:nth-of-type(1) { animation-delay: 120ms; }
+html[data-logo-fill] .bz-logo--fill rect:nth-of-type(2) { animation-delay: 200ms; }
+html[data-logo-fill] .bz-logo--fill rect:nth-of-type(3) { animation-delay: 280ms; }
+html[data-logo-fill] .bz-logo--fill rect:nth-of-type(4) { animation-delay: 360ms; }
+html[data-logo-fill] .bz-logo--fill rect:nth-of-type(5) { animation-delay: 440ms; }
+@media (prefers-reduced-motion: reduce) { html[data-logo-fill] .bz-logo--fill rect { animation: none; } }
+
 
 /* === Page layout (website canvas: site.css) ================ */
 /* boozle.io page layout — builds on the Boozle design system (ds/boozle/tokens.css + components/bundle.css). Prefix pg- */
@@ -522,7 +534,7 @@ button { font: inherit; }
 /* hero */
 .pg-hero { padding-block: 88px 96px; }
 .pg-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: center; }
-.pg-hero .bz-display-xl { font-size: clamp(40px, 5.6vw, 80px); }
+.pg-hero .bz-display-xl { font-size: clamp(40px, 4.8vw, 66px); } /* Mona Sans at wdth 108: "Auto-advancing" is ~8em and must fit the 544px column */
 @media (min-width: 600px) { .pg-nowrap { white-space: nowrap; } }
 .pg-hero__copy { display: grid; gap: 24px; justify-items: start; }
 .pg-hero__meta { font-size: 13px; color: var(--ink-faint); display: flex; flex-wrap: wrap; gap: 6px 14px; }
@@ -693,7 +705,7 @@ button { font: inherit; }
 .pg-404 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: center; padding-block: 96px 120px; }
 .pg-404__copy { display: grid; gap: 24px; justify-items: start; }
 .pg-404__more { margin: 0; }
-.pg-404__num { font-family: var(--font-display); font-weight: 800; font-size: clamp(64px, 11vw, 168px); line-height: 0.9; letter-spacing: -0.05em; font-variation-settings: 'opsz' 96, 'wdth' 88; margin: 10px 0 12px; background: var(--spectrum); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.pg-404__num { font-family: var(--font-display); font-weight: 760; font-size: clamp(64px, 11vw, 168px); line-height: 0.92; letter-spacing: -0.035em; font-variation-settings: 'wdth' 108; margin: 10px 0 12px; background: var(--spectrum); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .pg-stopped { display: inline-flex; align-items: center; gap: 6px; }
 .pg-stopped::before { content: ""; width: 6px; height: 6px; border-radius: 1px; background: var(--ink-faint); }
 @media (max-width: 860px) { .pg-404 { grid-template-columns: minmax(0, 1fr); padding-block: 48px 72px; gap: 40px; } }
@@ -702,7 +714,7 @@ button { font: inherit; }
 .og { width: 1200px; height: 630px; box-sizing: border-box; position: relative; overflow: hidden; background: var(--ground); color: var(--ink); display: grid; grid-template-columns: 560px 1fr; gap: 56px; align-items: center; padding: 0 0 0 72px; }
 .og__copy { display: grid; gap: 26px; justify-items: start; }
 .og__copy .bz-logo { color: var(--ink); }
-.og__title { font-family: var(--font-display); font-weight: 800; font-size: 66px; line-height: 0.95; letter-spacing: -0.035em; font-variation-settings: 'opsz' 96, 'wdth' 92; }
+.og__title { font-family: var(--font-display); font-weight: 720; font-size: 66px; line-height: 1; letter-spacing: -0.025em; font-variation-settings: 'wdth' 108; }
 .og__meta { font: 500 15px/20px var(--font-mono); color: var(--ink-muted); }
 .og__cmd { font-size: 15px; padding-right: 18px; }
 .og__screen { width: 680px; }
