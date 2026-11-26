@@ -10,7 +10,7 @@ Live at **[boozle.io](https://boozle.io)**
 
 Boozle turns any PDF into a fullscreen, auto-advancing slideshow. It is built for trade show booths, kiosk displays, lobby screens, classrooms, and hands-free presentations. No presentation suite. No runtime. No installer. Just a single static binary.
 
-Key features: auto-advance timer, loop mode, per-slide timing via TOML sidecar config, progress overlay, slide overview grid, HiDPI rendering, multi-monitor support with monitor selection by index or name, presenter view with speaker notes (from TOML, `.pdfpc`, or imported PowerPoint notes), and cross-platform binaries for macOS (Intel and Apple Silicon), Linux (x86_64 and ARM64), and Windows.
+Key features: auto-advance timer, loop mode, per-slide timing via TOML sidecar config, progress overlay, slide overview grid, HiDPI rendering, multi-monitor support with monitor selection by index or name, presenter view with speaker notes (from TOML, `.pdfpc`, or imported PowerPoint notes), live reload when the PDF or its sidecar changes (`--watch`), and cross-platform binaries for macOS (Intel and Apple Silicon), Linux (x86_64 and ARM64), and Windows.
 
 ---
 
@@ -20,7 +20,7 @@ Key features: auto-advance timer, loop mode, per-slide timing via TOML sidecar c
 boozle-website/
 ├── index.html          # Home: hero with running deck, features, install, use cases, quick start, compare, FAQ
 ├── docs.html           # CLI reference, keyboard shortcuts, TOML/pdfpc sidecars, performance, platform notes
-├── use-cases.html      # Seven use-case walkthroughs with display mockups
+├── use-cases.html      # Eight use-case walkthroughs with display mockups
 ├── compare.html        # Feature comparison vs PowerPoint, Keynote, Acrobat, browser viewers
 ├── legal-notice.html   # Impressum
 ├── privacy.html        # Privacy policy
@@ -29,13 +29,13 @@ boozle-website/
 ├── assets/
 │   ├── css/style.css   # Single stylesheet: fonts, tokens (dark + light), bz-* components, pg-* page layout
 │   ├── js/main.js      # Vanilla JS: theme toggle, mobile menu, install tabs, copy, docs scroll-spy, reveals
-│   ├── fonts/          # Bricolage Grotesque, Geist, Geist Mono (variable woff2, OFL, self-hosted)
+│   ├── fonts/          # Mona Sans, Geist, Geist Mono (variable woff2, OFL, self-hosted)
 │   └── og/boozle-og.png  # 1200×630 social preview image
 ├── logos/
-│   ├── logo.svg / logo.png          # Primary lockup for dark grounds
+│   ├── logo.svg / logo.png          # Primary lockup for dark grounds: "boozle" on an 8-segment progress bar
 │   ├── logo-light.svg               # Lockup for light grounds
 │   ├── logo-mono-white.svg / -black # One-colour versions
-│   ├── mark.svg / mark-light.svg    # The "b" mark alone
+│   ├── mark.svg / mark-light.svg    # The "b" over four progress segments, for square slots
 │   ├── app-icon.svg, apple-touch-icon.png
 │   └── favicon.svg / favicon.png
 ├── styleguide/
@@ -49,10 +49,10 @@ boozle-website/
 
 Pure static HTML, CSS, and vanilla JavaScript. No build step, no bundler, no framework, no dependencies. The site can be opened directly in a browser from the filesystem.
 
-- **Fonts**: Bricolage Grotesque (display), Geist (text), Geist Mono (code, timers). Self-hosted from `assets/fonts/`, with no third-party font requests.
+- **Fonts**: Mona Sans (display, variable width), Geist (text), Geist Mono (code, timers). Self-hosted from `assets/fonts/`, with no third-party font requests.
 - **Themes**: dark by default. Light follows the OS setting, and the header toggle stores an explicit choice in `localStorage` (`boozle-theme`). A tiny inline script in each `<head>` applies it before first paint.
 - **Icons**: inline SVG, outline style, 1.75 stroke.
-- **Motion**: CSS transitions with custom curves. The hero deck auto-advances with CSS keyframes (transform/opacity only). Sections below the fold rise in once via IntersectionObserver. `prefers-reduced-motion` keeps fades and drops movement.
+- **Motion**: CSS transitions with custom curves. The hero deck auto-advances with CSS keyframes (transform/opacity only). Sections below the fold rise in once via IntersectionObserver. On the home page the five lit logo segments switch on once per session (opacity only, set by an inline `<head>` script). `prefers-reduced-motion` keeps fades and drops movement.
 - **Interactive**: install tabs (clip-path indicator, arrow-key navigation), copy-to-clipboard, FAQ (`<details>`), mobile menu, docs scroll-spy, theme toggle.
 
 ---
@@ -104,7 +104,7 @@ The `CNAME` file in the repo root is picked up automatically by GitHub Pages and
 
 The visual system lives in the **Boozle - Design System** artifact (tokens, components, motion rules, logo). The page designs live in the **Boozle - Website** artifact. `styleguide/boozle_styleguide.png` is a one-page overview.
 
-The idea is that **the timer is the brand**. The eight-stop spectrum is used only for time and progress: progress segments, countdown rings and the logo bowl. Everything else is neutral.
+The idea is that **the timer is the brand**. The eight-stop spectrum is used only for time and progress: progress segments, countdown rings and the progress bar under the logo. Everything else is neutral.
 
 | Token | Dark | Light | Usage |
 |---|---|---|---|
@@ -114,7 +114,7 @@ The idea is that **the timer is the brand**. The eight-stop spectrum is used onl
 | `--ink-muted` | `#a9a9c0` | `#545469` | Ledes, card copy |
 | `--signal` | `#5ce1ff` | `#0a62b0` | Links, active docs item |
 | `--spectrum-*` | `#ff4d6d` → `#ff61d8` | same | Time and progress only |
-| `--font-display` | Bricolage Grotesque | | Headlines |
+| `--font-display` | Mona Sans | | Headlines (wdth 104–108) |
 | `--font-sans` | Geist | | Body and UI |
 | `--font-mono` | Geist Mono | | Commands, flags, timers |
 
